@@ -1,0 +1,417 @@
+*::selection {
+    background-color: #c5c5c5;
+    color: #193fe9;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body::-webkit-scrollbar {
+    display: block;
+    background-color: rgb(235, 232, 232);
+    width: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #1E90FF;
+    border-radius: 30px;
+}
+body{
+    overflow-x: hidden;
+}
+
+ul {
+    /* background-color: #bac9d5
+    ; */
+    background-color: #6f8ea7;
+    /* background-color: pink; */
+
+}
+
+.navbar .logo {
+    cursor: pointer;
+}
+.navbar{
+    position: sticky;
+    top: 0px;
+    z-index: 99;
+}
+body {
+    background-color: rgb(240, 242, 245);
+}
+.front{
+    height: 75vh;
+    align-items: center;
+}
+
+.item {
+    padding: 12px;
+    font-size: 20px;
+}
+.item a{
+    font-weight: 700;
+    transition: all 0.2s ease-in-out;
+}
+.item a:hover{
+    font-size: 21px;
+    text-shadow: 10px 10px 50px black;
+}
+.left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#btn1 {
+    text-align: right;
+    width: 97px;
+    height: 34px;
+    font-size: 18px;
+    margin: 5px;
+    background-color: #91c9fc;
+}
+
+.btn {
+    padding: 7px;
+    border-radius: 12px;
+    margin: 4px;
+    background-color: white;
+    font-size: 14px;
+}
+
+.logo {
+    font-size: 26px;
+    color: #0b00a3;
+    font-weight: bold;
+}
+
+.head {
+    font-size: 38px;
+    letter-spacing: 2px;
+}
+
+.m-4 {
+    margin: 4px;
+    font-size: 45px;
+    font-style: italic;
+}
+
+
+
+.f-45 {
+    font-size: 45px;
+}
+
+.content {
+    font-size: 20px;
+    text-align: center;
+    padding: 27px;
+}
+
+.img-front {
+    height: 345px;
+    width: 732px;
+    object-fit: cover;
+    object-position: top;
+}
+
+hr {
+    width: 469px;
+    position: relative;
+    bottom: 8px;
+    height: 2px;
+    background-color: black;
+    border-radius: 12px;
+}
+
+.achieve {
+    font-size: 57px;
+    padding-top: 41px;
+    margin: 0px;
+}
+
+.with {
+    margin: 0px;
+    margin-right: 6px;
+}
+
+.semihead {
+    position: relative;
+    bottom: 7px;
+    letter-spacing: 2px;
+}
+
+.para {
+    margin: 1px;
+    font-size: 17px;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    font-size: 23px;
+    margin: 33px auto;
+    background-color: white;
+    border-radius: 12px;
+    border: 0px;
+    outline: none;
+}
+
+
+.box {
+    width: 33%;
+    height: 360px;
+    background-color: #bac9d5;
+    border-radius: 23px;
+    margin: 9px;
+}
+
+.box img {
+    display: block;
+    margin: auto;
+    margin: 23px auto 0px;
+    object-fit: cover;
+}
+
+.courses {
+    font-size: 38px;
+    margin: 18px;
+    text-decoration: underline;
+    letter-spacing: 2px;
+}
+
+.box a {
+    font-size: 27px;
+    font-weight: bold;
+    margin: 7px;
+}
+
+.connect {
+    font-size: 27px;
+    font-weight: bold;
+}
+
+.con {
+    margin: 19px auto;
+    padding: 7px;
+}
+
+.icon img {
+    height: 23px;
+
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    margin: 2px auto;
+    padding: 7px;
+    font-size: 18px;
+
+}
+
+.logo-end {
+    font-size: 25px;
+    margin-right: 20px;
+    color: #0b00a3;
+    font-weight: bold;
+}
+
+.section {
+    font-size: 20px;
+    padding: 21px;
+    text-align: center;
+}
+
+.section-head {
+    font-size: 39px;
+    color: #870094;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin: 36px;
+    
+}
+.grid li{
+    transition: all 0.2s ease-in-out;
+}
+.grid-box {
+    font-size: 23px;
+    height: 53px;
+    background-color: #dddddd;
+}
+
+.explore {
+    display: flex;
+    justify-content: end;
+    font-size: 21px;
+    margin-right: 24px;
+}
+
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 30%;
+    height: 100%;
+    background-color: rgb(240, 242, 245);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+.side-menu.active {
+    left: 0;
+}
+
+.side-menu .close-btn {
+    align-self: flex-end;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.side-menu a {
+    text-decoration: none;
+    color: #333333;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+.side-menu a:hover {
+    color: #1E90FF;
+}
+
+.navbar .menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.button #btn1 {
+    display: flex;
+}
+
+.main {
+    margin: 0px;
+    padding: 10px;
+}
+
+.secondpage {
+    display: flex;
+    flex-direction: column;
+    padding: 2px;
+    height: 60vh;
+    justify-content: center;
+}
+.secondpage .achieve{
+    transform: translateX(-100%);
+}
+.secondpage .semihead{
+    transform: translateX(100%);
+}
+.secondpage .para{
+    scale: 0;
+}
+.thirdpage .container #box1{
+    transform: translateX(-100%);
+}
+.thirdpage .container #box3{
+    transform: translateX(100%);
+}
+.thirdpage .container #box2{
+    scale: 0;
+}
+
+.selectedinput {
+    width: 38vw;
+    margin: 20px auto;
+    position: relative;
+}
+
+.selectedinput img {
+    position: absolute;
+    right: 19px;
+}
+
+.boximg {
+    margin: 30px auto 10px;
+    width: 80%;
+    height: 70%;
+    background-image: url("images/wd.png");
+    object-fit: cover;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    aspect-ratio: 8/8;
+}
+
+#ai {
+    background-image: url("images/ai\ with\ python.png");
+}
+#cs{
+    background-image: url("images/Cyber-Security.jpg");
+    background-position: right;
+}
+.blur {
+    filter: blur(5px);
+}
+
+.section {
+    font-size: 20px;
+    padding: 10px 119px;
+    text-align: center;
+    line-height: 35.5px;
+}
+
+.last {
+    width: 100vw;
+    position: absolute;
+    bottom: 0px;
+}
+
+.img-front {
+    animation: popup 1s ease-in-out ;
+}
+.heading{
+    /* display: none; */
+    animation: popout 1s ease-in-out ;
+}
+@keyframes popout {
+    0%{
+        scale: 0;
+    }
+    100%{
+        scale:1;
+    }
+}
+@keyframes popup {
+    0% {
+        /* width: 10px;
+        height: 10px; */
+        transform: translateX(-100%);
+        /* position: absolute;
+        left: 0px; */
+
+    }
+
+    100% {
+        transform: translateX(0%);
+        /* height: 345px;
+        width: 732px; */
+    }
+}
+.grid li:hover{
+    /* background-color: #f0f0f0; */
+    padding: 10px;
+    box-shadow: 10px 10px 50px black;
+}
