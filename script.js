@@ -1,18 +1,4 @@
-function toggleMenu() {
-    let blurb = document.querySelector('.header');
-    const sideMenu = document.getElementById('side-menu');
-    sideMenu.classList.toggle('active');
 
-
-    if (sideMenu.classList.contains('active')) {
-        console.log("hey")
-        blurb.classList.add('blur');
-    }
-
-    document.querySelector(".close-btn").addEventListener("click", () => {
-        blurb.classList.remove('blur')
-    })
-}
 
 
 const loginForm = document.getElementById('login-form');

@@ -91,3 +91,13 @@ input[type="submit"]:hover {
 #signup-link:hover {
     color: #3e8e41;
 }
+#cross{
+    position: absolute;
+    top: 8px;
+    left: 18px;
+}
+@media (max-width:600px) {
+    #login-form,#signup-form{   
+        width: 340px;
+    }
+}

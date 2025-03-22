@@ -272,6 +272,9 @@
     .section-2 {
         padding: 10px;
     }
+    #resultBox{
+        width: 92%;
+    }
 
     .section-2 h2 {
         font-size: 1.2rem;
@@ -279,6 +282,9 @@
 
     .section-2 h3 {
         font-size: 1rem;
+    }
+    .grid-box{
+        font-size: 20px;
     }
 
 }
