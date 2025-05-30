@@ -4,103 +4,553 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> ExamEdge | notes, videos , questions </title>
-    <link rel="stylesheet" href="utilis.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="responsive.css">
+    <title>ExamEdge | Notes, Videos, Questions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        'primary': '#667eea',
+                        'secondary': '#764ba2',
+                        'accent': '#f093fb',
+                        'accent-end': '#f5576c',
+                        'dark-start': '#1e3c72',
+                        'dark-end': '#2a5298',
+                    },
+                    backgroundImage: {
+                        'primary-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        'secondary-gradient': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                        'dark-gradient': 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
+                        'light-gradient': 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
+                        'hero-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        'cyber-gradient': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                    },
+                    animation: {
+                        'fadeInUp': 'fadeInUp 0.8s ease forwards',
+                        'counter': 'counter 2s ease forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            'from': {
+                                opacity: '0',
+                                transform: 'translateY(30px)'
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .glass-dark {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-10px);
+        }
+        
+    </style>
 </head>
 
-<body>
-    <div class="side-menu" id="side-menu">
-        <div class="close-btn" onclick="toggleMenu()">&times;</div>
-        <a href="./index.html">Home</a>
-        <a href="./about.html">About</a>
-        <a href="./courses.html">Courses</a>
-        <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj">Community</a>
-        <a href="#">Contribute</a>
-      </div>
-    <header class="header">
-        <nav class="navbar">
-            <ul class="main d-flex j-spacebetween">
-                <div class="left">
+<body class="font-inter text-gray-800 overflow-x-hidden">
+    <!-- Overlay -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-40 opacity-0 invisible transition-all duration-300 ease-in-out" id="overlay" onclick="toggleMenu()"></div>
+    
+    <!-- Side Menu -->
+    <div class="fixed top-0 -left-80 w-80 h-screen bg-primary-gradient transition-all duration-300 ease-in-out z-50 p-8 shadow-2xl" id="side-menu">
+        <div class="absolute top-4 right-4 text-white text-3xl cursor-pointer transition-transform duration-300 hover:rotate-90" onclick="toggleMenu()">&times;</div>
+        <div class="mt-12 space-y-4">
+            <a href="./index.html" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Home</a>
+            <a href="./about.html" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">About</a>
+            <a href="./courses.html" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Courses</a>
+            <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Community</a>
+            <a href="#" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Contribute</a>
+        </div>
+    </div>
 
-                    <li class="menu-toggle" onclick="toggleMenu()">&#9776;</li>
-                    <li class="logo list-none d-flex items-center t-underline">ExamEdge</li>
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-30 glass-effect shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Left side -->
+                <div class="flex items-center space-x-4">
+                    <button class="lg:hidden text-xl cursor-pointer" onclick="toggleMenu()">&#9776;</button>
+                    <div class="font-playfair text-2xl font-bold text-gradient">ExamEdge</div>
                 </div>
-                <ul type="disc" class="center-links d-flex">
-                    <li class="item list-none"><a href="./index.html" class="text-none c-black">Home</a></li>
-                    <li class="item list-none"><a href="./about.html" class="text-none c-black">About</a></li>
-                    <li class="item list-none"><a href="courses.html" class="text-none c-black">Courses</a></li>
-                    <li class="item list-none"><a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-none c-black">Community</a></li>
-                </ul>
-                <ul class="button d-flex items-center">
-                    <button id="btn1" class="align-right d-flex j-spacebetween items-center c-pointer"><img width="22"
-                            src="images/Upload cloud.png" alt=""> Upload</button>
-                    <a href="./blackbox.html"><button class="btn c-pointer">Log-in /Sign-up</button></a>
-                    
-                </ul>
-            </ul>
-        </nav>
+                
+                <!-- Center links (hidden on mobile) -->
+                <div class="hidden lg:flex space-x-8">
+                    <a href="./index.html" class="text-gray-800 font-medium relative group">
+                        Home
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="./about.html" class="text-gray-800 font-medium relative group">
+                        About
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="courses.html" class="text-gray-800 font-medium relative group">
+                        Courses
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-gray-800 font-medium relative group">
+                        Community
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </div>
+                
+                <!-- Right buttons -->
+                <div class="flex items-center space-x-4">
+                    <a href="./uploadfile.html"><button class="hidden sm:flex items-center space-x-2 px-4 py-2 border-2 border-primary rounded-full font-semibold transition-all duration-300 hover:bg-primary-gradient hover:text-white">
+                        <span>📤</span>
+                        <span>Upload</span>
+                    </button></a>
+                    <a href="./blackbox.html">
+                        <button class="bg-primary-gradient text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/40">
+                            Log-in / Sign-up
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero Section -->
+    <section class="min-h-screen bg-hero-gradient flex items-center justify-center text-white relative overflow-hidden pt-20">
         
-         <div class="front d-flex j-center">
-            <div class="heading">
-                <div class="head d-flex j-center items-center ">
-                    <div class="m-4">Welcome to</div>
-                    <div class="f-45 logo "> ExamEdge ! </div>
-                </div>
-                <hr>
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="inset-block-start: 64px;
+    inset-inline: 17px; background-image: url('./images/education.jpg');  background-size: cover;"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 animate-fadeInUp">
+            <div class="mb-8">
+                <div class="text-2xl font-light mb-4 opacity-90">Welcome to</div>
+                <div class="font-playfair text-6xl md:text-7xl font-bold mb-6">ExamEdge!</div>
+            </div>
+            
+            <div class="w-32 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mb-8 opacity-50"></div>
+            
+            <div class="space-y-4 text-xl md:text-2xl font-light opacity-90">
+                <p>"Believe in yourself, and we'll provide the notes to help you succeed!"</p>
+                <p>"Unlock your potential with our expertly crafted notes and study guides!"</p>
+            </div>
+        </div>
+    </section>
+    <div class="w-screen h-3 bg-white"></div>
+    <!-- Goals Section -->
+    <section class="bg-dark-gradient text-white py-24">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h1 class="font-playfair text-5xl md:text-6xl font-bold mb-4">Achieve Your Goals</h1>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
+                <h2 class="text-3xl md:text-4xl font-light">With</h2>
+                <h2 class="font-playfair text-3xl md:text-4xl font-bold text-yellow-400">ExamEdge</h2>
+            </div>
+            <p class="text-xl opacity-90 max-w-2xl mx-auto mb-12">
+                "Explore our vast library of notes and study resources, and discover new ways to learn and succeed!"
+            </p>
+            
+            <div class="max-w-lg mx-auto">
+                <input 
+                    id="searchInput" 
+                    type="text" 
+                    placeholder="Select your field of study..." 
+                    class="w-full px-6 py-4 rounded-full text-lg glass-dark text-white border-2 border-white border-opacity-20 focus:border-yellow-400 focus:outline-none focus:shadow-lg focus:shadow-yellow-400/30 transition-all duration-300 placeholder-white placeholder-opacity-70"
+                >
+            </div>
+        </div>
+    </section>
 
-                <div class="content">"Believe in yourself, and we'll provide the notes to help you succeed!"</div>
-                <div class="content" style="padding-top: 0px;"> "Unlock your potential with our expertly crafted notes
-                    and study guides!"</div>
-            </div>
-            <img class="img-front" src="images/Rectangle 5.png" alt="">
-        </div>
-         <div class="secondpage bg-black c-white">
-            <h1 class="d-flex j-center achieve">Achieve Your Goals</h1>
-            <div class="d-flex j-center items-center semihead">
-                <h2 class=" with d-flex items-center">With</h2>
-                <h2 class="logo t-underline" style="margin: 0px;">ExamEdge</h2>
-            </div>
-            <p class="para d-flex j-center">"Explore our vast library of notes and study resources, and discover new
-                ways to learn and
-                succeed!"</p>
-            <div class="selectedinput">
-                <input id="input" type="text" placeholder="Select field" required autocomplete="off">
-                <div id="resultBox"></div>
-            </div>
-        </div>
-        <div class="thirdpage">
-            <div class="courses d-flex j-center">Recommended Courses</div>
-            <div class="container d-flex">
-                <div id="box1" class="box">
-                    <div class="boximg"></div>
-                    <a class="d-flex j-center" href="./web development.html">Web Development</a></div>
-                <div id="box2" class="box">
-                    <div id="ai" class="boximg"></div><a class="d-flex j-center" href="./ai with python.html">Ai with
-                        Python</a></div>
-                <div id="box3" class="box">
-                    <div id="cs" class="boximg"></div>
-                    <a class="d-flex j-center" href="./cyber security.html">Cyber security</a>
+    <!-- Features Section -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800">Why Choose ExamEdge?</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift text-center border border-gray-100">
+                    <div class="w-20 h-20 bg-primary-gradient rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-6">📚</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Comprehensive Notes</h3>
+                    <p class="text-gray-600 leading-relaxed">Access thousands of expertly crafted study notes covering all major subjects and topics.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift text-center border border-gray-100">
+                    <div class="w-20 h-20 bg-secondary-gradient rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-6">🎥</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Video Tutorials</h3>
+                    <p class="text-gray-600 leading-relaxed">Learn with engaging video content that makes complex concepts easy to understand.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift text-center border border-gray-100">
+                    <div class="w-20 h-20 bg-primary-gradient rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-6">❓</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Practice Questions</h3>
+                    <p class="text-gray-600 leading-relaxed">Test your knowledge with our extensive collection of practice questions and quizzes.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift text-center border border-gray-100">
+                    <div class="w-20 h-20 bg-secondary-gradient rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-6">👥</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Study Community</h3>
+                    <p class="text-gray-600 leading-relaxed">Connect with fellow students, share knowledge, and learn together in our vibrant community.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift text-center border border-gray-100">
+                    <div class="w-20 h-20 bg-primary-gradient rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-6">📱</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Mobile Friendly</h3>
+                    <p class="text-gray-600 leading-relaxed">Study anywhere, anytime with our fully responsive platform that works on all devices.</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift text-center border border-gray-100">
+                    <div class="w-20 h-20 bg-secondary-gradient rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-6">🏆</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Expert Guidance</h3>
+                    <p class="text-gray-600 leading-relaxed">Get guidance from experienced educators and top performers in various fields.</p>
                 </div>
             </div>
-            <div class="explore"><a href="./courses.html">Explore More</a></div>
-            <div class="con d-flex j-spacebetween items-center">
-                <div class="connect">Connect with us</div>
-                <div class="icon"> 
-                    <a href=""><img  src="images/Instagram (1).png" alt="instagram"></a>
-                    <a href=""><img src="images/Linkedin.png" alt="linked-in"></a>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="py-24 bg-dark-gradient text-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <div class="p-8">
+                    <div class="text-5xl font-bold text-yellow-400 mb-2 stat-number">50K+</div>
+                    <div class="text-lg opacity-90">Students Helped</div>
+                </div>
+                <div class="p-8">
+                    <div class="text-5xl font-bold text-yellow-400 mb-2 stat-number">1000+</div>
+                    <div class="text-lg opacity-90">Study Resources</div>
+                </div>
+                <div class="p-8">
+                    <div class="text-5xl font-bold text-yellow-400 mb-2 stat-number">95%</div>
+                    <div class="text-lg opacity-90">Success Rate</div>
+                </div>
+                <div class="p-8">
+                    <div class="text-5xl font-bold text-yellow-400 mb-2 stat-number">24/7</div>
+                    <div class="text-lg opacity-90">Support Available</div>
                 </div>
             </div>
-            <footer class="footer d-flex items-center">
-                <div class="logo-end">ExamEdge</div>| &nbsp; Copyright © 2024 ExamEdge.com
-            </footer>
         </div>
-    </header>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="main.js"></script>
-    <!-- <script src="script.js"></script> -->
+    </section>
+
+    <!-- Courses Section -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800">Recommended Courses</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover-lift border border-gray-100">
+                    <div class="h-48 bg-primary-gradient " style="background-image: url('./images/wd.png');"></div>
+                    <div class="p-6">
+                        <a href="./web development.html" class="block text-center text-xl font-semibold text-gray-800 hover:text-primary transition-colors duration-300">
+                            Web Development
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover-lift border border-gray-100">
+                    <div class="h-48 bg-secondary-gradient" style="background-image: url('./images/ai\ with\ python.png'); background-position: center top;"></div>
+                    <div class="p-6">
+                        <a href="./ai with python.html" class="block text-center text-xl font-semibold text-gray-800 hover:text-primary transition-colors duration-300">
+                            AI with Python
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover-lift border border-gray-100">
+                    <div class="h-48 bg-cyber-gradient" style="background-image: url('./images/Cyber-Security.jpg'); background-size: cover;"></div>
+                    <div class="p-6">
+                        <a href="./cyber security.html" class="block text-center text-xl font-semibold text-gray-800 hover:text-primary transition-colors duration-300">
+                            Cyber Security
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="./courses.html" class="inline-block bg-primary-gradient text-white px-8 py-3 rounded-full font-semibold text-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/40">
+                    Explore More Courses
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800">What Our Students Say</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <p class="text-gray-600 italic text-lg mb-6 leading-relaxed">
+                        "ExamEdge transformed my study routine. The notes are incredibly detailed and the video tutorials made complex topics so much easier to understand."
+                    </p>
+                    <div class="font-semibold text-gray-800">Sarah Johnson</div>
+                    <div class="text-gray-500 text-sm">Computer Science Student</div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <p class="text-gray-600 italic text-lg mb-6 leading-relaxed">
+                        "I improved my grades by 30% after using ExamEdge. The practice questions are spot-on and really helped me prepare for my exams."
+                    </p>
+                    <div class="font-semibold text-gray-800">Michael Chen</div>
+                    <div class="text-gray-500 text-sm">Engineering Student</div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <p class="text-gray-600 italic text-lg mb-6 leading-relaxed">
+                        "The community aspect is amazing. Being able to discuss problems with other students and get help from mentors has been invaluable."
+                    </p>
+                    <div class="font-semibold text-gray-800">Emily Rodriguez</div>
+                    <div class="text-gray-500 text-sm">Medical Student</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-2">
+                    <div class="font-playfair text-3xl font-bold mb-4 text-gradient">ExamEdge</div>
+                    <p class="text-gray-400 leading-relaxed mb-6 max-w-md">
+                        Empowering students with comprehensive programming education. Master the fundamentals and build
+                        your future in technology.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Instagram">
+                            📷
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="LinkedIn">
+                            💼
+                        </a>
+                        <a href="./uploadfile.html"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Contribute">
+                            📤
+                        </a>
+                        <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Community">
+                            👥
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="./index.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Home</a></li>
+                        <li><a href="./about.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">About</a></li>
+                        <li><a href="./courses.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Courses</a></li>
+                        <li><a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-gray-400 hover:text-white transition-colors duration-300">Community</a>
+                        </li>
+                        <li><a href="./uploadfile.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Contribute</a></li>
+                    </ul>
+                </div>
+
+                <!-- Courses -->
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Popular Courses</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">C
+                                Programming</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">C++</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Java</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Python</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Data
+                                Structures</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    © 2025 ExamEdge. All rights reserved. Made with ❤️ for students.
+                </p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Terms of
+                        Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle side menu
+        function toggleMenu() {
+            const sideMenu = document.getElementById('side-menu');
+            const overlay = document.getElementById('overlay');
+            
+            sideMenu.classList.toggle('-left-80');
+            sideMenu.classList.toggle('left-0');
+            overlay.classList.toggle('opacity-0');
+            overlay.classList.toggle('invisible');
+            overlay.classList.toggle('opacity-100');
+            overlay.classList.toggle('visible');
+        }
+
+        // Counter animation for statistics
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = counter.textContent;
+                const isPercentage = target.includes('%');
+                const isPlus = target.includes('+');
+                const isSlash = target.includes('/');
+                
+                let numericTarget;
+                if (isPercentage) {
+                    numericTarget = parseInt(target.replace('%', ''));
+                } else if (isPlus) {
+                    numericTarget = parseInt(target.replace(/[K+]/g, '')) * (target.includes('K') ? 1000 : 1);
+                } else if (isSlash) {
+                    return; // Skip 24/7 as it's not a number to animate
+                } else {
+                    numericTarget = parseInt(target);
+                }
+                
+                let current = 0;
+                const increment = numericTarget / 100;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= numericTarget) {
+                        current = numericTarget;
+                        clearInterval(timer);
+                    }
+                    
+                    let displayValue;
+                    if (isPercentage) {
+                        displayValue = Math.floor(current) + '%';
+                    } else if (target.includes('K+')) {
+                        displayValue = Math.floor(current / 1000) + 'K+';
+                    } else if (isPlus) {
+                        displayValue = Math.floor(current) + '+';
+                    } else {
+                        displayValue = Math.floor(current);
+                    }
+                    
+                    counter.textContent = displayValue;
+                }, 20);
+            });
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeInUp');
+                }
+            });
+        }, observerOptions);
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Initialize observers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Observe feature cards and course boxes for fade-in animation
+            document.querySelectorAll('.hover-lift').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Observe stats section for counter animation
+            const statsSection = document.querySelector('.py-24.bg-dark-gradient');
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchSuggestions = [
+            'Web Development',
+            'AI with Python',
+            'Cyber Security',
+            'Data Science',
+            'Machine Learning',
+            'Mobile Development',
+            'Database Management',
+            'Cloud Computing',
+            'DevOps',
+            'UI/UX Design'
+        ];
+
+        searchInput.addEventListener('input', function() {
+            const value = this.value.toLowerCase();
+            if (value.length > 0) {
+                const filtered = searchSuggestions.filter(item => 
+                    item.toLowerCase().includes(value)
+                );
+                console.log('Filtered suggestions:', filtered);
+                // You can implement dropdown suggestions here
+            }
+        });
+
+        // Smooth page load
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+    </script>
 </body>
 
 </html>

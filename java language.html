@@ -1,66 +1,791 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses | ExamEdge </title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="utilis.css">
-    <link rel="stylesheet" href="responsive.css">
+    <title>Java Language | ExamEdge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        'primary': '#667eea',
+                        'secondary': '#764ba2',
+                        'java-orange': '#ED8B00',
+                        'java-blue': '#5382A1',
+                        'accent': '#f093fb',
+                        'accent-end': '#f5576c',
+                        'dark-start': '#1e3c72',
+                        'dark-end': '#2a5298',
+                    },
+                    backgroundImage: {
+                        'primary-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        'java-gradient': 'linear-gradient(135deg, #ED8B00 0%, #5382A1 100%)',
+                        'secondary-gradient': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                        'dark-gradient': 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
+                        'hero-gradient': 'linear-gradient(135deg, #ED8B00 0%, #5382A1 100%)',
+                    },
+                    animation: {
+                        'fadeInUp': 'fadeInUp 0.8s ease forwards',
+                        'slideInLeft': 'slideInLeft 0.8s ease forwards',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            'from': {
+                                opacity: '0',
+                                transform: 'translateY(30px)'
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
+                        },
+                        slideInLeft: {
+                            'from': {
+                                opacity: '0',
+                                transform: 'translateX(-50px)'
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'translateX(0)'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .java-text-gradient {
+            background: linear-gradient(135deg, #ED8B00 0%, #5382A1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .glass-dark {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-10px);
+        }
+        
+        .code-block {
+            background: linear-gradient(135deg, #1e1e1e 0%, #2d2d2d 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            color: #f8f8f2;
+            font-family: 'Courier New', monospace;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .code-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #ED8B00, #5382A1);
+        }
+        
+        .syntax-keyword { color: #66d9ef; }
+        .syntax-string { color: #a6e22e; }
+        .syntax-comment { color: #75715e; }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px) scale(1.02);
+        }
+    </style>
 </head>
-<body>
-    <div class="side-menu" id="side-menu">
-        <div class="close-btn" onclick="toggleMenu()">&times;</div>
-        <a href="./index.html">Home</a>
-        <a href="./about.html">About</a>
-        <a href="./courses.html">Courses</a>
-        <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj">Community</a>
-        <a href="#">Contribute</a>
-    </div>
-    <div class="header">
-        <nav class="navbar">
-            <ul class="main d-flex j-spacebetween">
-                <div class="left">
 
-                    <li class="menu-toggle" onclick="toggleMenu()">&#9776;</li>
-                    <li class="logo list-none d-flex items-center t-underline">ExamEdge</li>
-                </div>
-                <ul type="disc" class="center-links d-flex">
-                    <li class="item list-none"><a href="./index.html" class="text-none c-black">Home</a></li>
-                    <li class="item list-none"><a href="./about.html" class="text-none c-black">About</a></li>
-                    <li class="item list-none"><a href="courses.html" class="text-none c-black">Courses</a></li>
-                    <li class="item list-none"><a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-none c-black">Community</a></li>
-                </ul>
-                <ul class="button d-flex items-center">
-                    <button id="btn1" class="align-right d-flex j-spacebetween items-center c-pointer"><img width="22"
-                            src="images/Upload cloud.png" alt=""> Upload</button>
-                    <a href="./blackbox.html"><button class="btn c-pointer">Log-in /Sign-up</button></a>
-                    
-                </ul>
-            </ul>
-        </nav>
-        <section class="dev">
-            <div class="section-head d-flex j-center t-underline">Java Langauge</div>
-            <div class="grid">
-                <li class="list-none grid-box d-flex j-center items-center"><a target="_blank" href="https://www.codewithharry.com/tutorial/java/">Notes</a></li>
-                <li class="list-none grid-box d-flex j-center items-center"><a target="_blank" href="https://www.youtube.com/watch?v=ntLJmHOJ0ME&list=PLu0W_9lII9agS67Uits0UnJyrYiXhDS6q">Videos</a></li>
-                <li class="list-none grid-box d-flex j-center items-center"><a target="_blank" href="https://www.w3schools.com/java/java_exercises.asp">Exercise</a></li>
-                
-            </div>
-        </section>
-        <div class="last">
-            <div class="con d-flex j-spacebetween items-center">
-                <div class="connect">Connect with us</div>
-                <div class="icon"> 
-                    <a href=""><img  src="images/Instagram (1).png" alt="instagram"></a>
-                    <a href=""><img src="images/Linkedin.png" alt="linked-in"></a>
-                </div>
-            </div>
-            <footer class="footer d-flex items-center">
-                <div class="logo-end">ExamEdge</div>| &nbsp; Copyright © 2024 ExamEdge.com
-            </footer>
+<body class="font-inter text-gray-800 overflow-x-hidden">
+    <!-- Overlay -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-40 opacity-0 invisible transition-all duration-300 ease-in-out" id="overlay" onclick="toggleMenu()"></div>
+    
+    <!-- Side Menu -->
+    <div class="fixed top-0 -left-80 w-80 h-screen bg-primary-gradient transition-all duration-300 ease-in-out z-50 p-8 shadow-2xl" id="side-menu">
+        <div class="absolute top-4 right-4 text-white text-3xl cursor-pointer transition-transform duration-300 hover:rotate-90" onclick="toggleMenu()">&times;</div>
+        <div class="mt-12 space-y-4">
+            <a href="./index.html" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Home</a>
+            <a href="./about.html" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">About</a>
+            <a href="./courses.html" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Courses</a>
+            <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Community</a>
+            <a href="#" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Contribute</a>
         </div>
     </div>
-    <script src="main.js"></script>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-30 glass-effect shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Left side -->
+                <div class="flex items-center space-x-4">
+                    <button class="lg:hidden text-xl cursor-pointer" onclick="toggleMenu()">&#9776;</button>
+                    <div class="font-playfair text-2xl font-bold text-gradient">ExamEdge</div>
+                </div>
+                
+                <!-- Center links (hidden on mobile) -->
+                <div class="hidden lg:flex space-x-8">
+                    <a href="./index.html" class="text-gray-800 font-medium relative group">
+                        Home
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="./about.html" class="text-gray-800 font-medium relative group">
+                        About
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="courses.html" class="text-gray-800 font-medium relative group">
+                        Courses
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-gray-800 font-medium relative group">
+                        Community
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </div>
+                
+                <!-- Right buttons -->
+                <div class="flex items-center space-x-4">
+                    <a href="./uploadfile.html"><button class="hidden sm:flex items-center space-x-2 px-4 py-2 border-2 border-primary rounded-full font-semibold transition-all duration-300 hover:bg-primary-gradient hover:text-white">
+                        <span>📤</span>
+                        <span>Upload</span>
+                    </button></a>
+                    <a href="./blackbox.html">
+                        <button class="bg-primary-gradient text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/40">
+                            Log-in / Sign-up
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen bg-hero-gradient flex items-center justify-center text-white relative overflow-hidden pt-16">
+        <!-- Java Logo Animation -->
+        <div class="absolute top-20 right-10 text-8xl opacity-20 animate-bounce-slow">☕</div>
+        <div class="absolute bottom-20 left-10 text-6xl opacity-20 animate-pulse-slow">{ }</div>
+        
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 50% 50%, white 1px, transparent 1px); background-size: 50px 50px;"></div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto px-4 text-center relative z-10">
+            <div class="mb-8 animate-fadeInUp">
+                <div class="text-2xl font-light mb-4 opacity-90">Master</div>
+                <div class="font-playfair text-6xl md:text-8xl font-bold mb-6">Java Programming</div>
+                <div class="text-xl md:text-2xl font-light opacity-90 max-w-3xl mx-auto">
+                    From basics to advanced concepts - Build robust, scalable applications with the world's most popular programming language
+                </div>
+            </div>
+            
+            <div class="w-32 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mb-12 opacity-50"></div>
+            
+            <!-- Quick Access Buttons -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto animate-slideInLeft">
+                <a href="#notes" class="group bg-white bg-opacity-20 backdrop-blur-lg rounded-2xl p-6 border border-white border-opacity-30 hover:bg-opacity-30 transition-all duration-300 hover:-translate-y-2">
+                    <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">📚</div>
+                    <h3 class="text-xl font-semibold mb-2">Study Notes</h3>
+                    <p class="text-sm opacity-80">Comprehensive Java concepts and syntax</p>
+                </a>
+                
+                <a href="#videos" class="group bg-white bg-opacity-20 backdrop-blur-lg rounded-2xl p-6 border border-white border-opacity-30 hover:bg-opacity-30 transition-all duration-300 hover:-translate-y-2">
+                    <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🎥</div>
+                    <h3 class="text-xl font-semibold mb-2">Video Tutorials</h3>
+                    <p class="text-sm opacity-80">Step-by-step coding walkthroughs</p>
+                </a>
+                
+                <a href="#practice" class="group bg-white bg-opacity-20 backdrop-blur-lg rounded-2xl p-6 border border-white border-opacity-30 hover:bg-opacity-30 transition-all duration-300 hover:-translate-y-2">
+                    <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">💻</div>
+                    <h3 class="text-xl font-semibold mb-2">Practice</h3>
+                    <p class="text-sm opacity-80">Exercises and coding challenges</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Java Overview Section -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h2 class="font-playfair text-4xl md:text-5xl font-bold text-gray-800">Why Learn <span class="java-text-gradient">Java?</span></h2>
+                    <p class="text-lg text-gray-600 leading-relaxed">
+                        Java is one of the most popular and versatile programming languages in the world. Used by millions of developers and billions of devices, Java powers everything from mobile applications to enterprise systems.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-java-gradient rounded-full flex items-center justify-center text-white text-sm">✓</div>
+                            <span class="text-gray-700">Platform independent - "Write Once, Run Anywhere"</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-java-gradient rounded-full flex items-center justify-center text-white text-sm">✓</div>
+                            <span class="text-gray-700">Strong memory management and garbage collection</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-java-gradient rounded-full flex items-center justify-center text-white text-sm">✓</div>
+                            <span class="text-gray-700">Robust security features and exception handling</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-java-gradient rounded-full flex items-center justify-center text-white text-sm">✓</div>
+                            <span class="text-gray-700">Huge community and extensive library ecosystem</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="code-block">
+                    <div class="text-sm text-gray-400 mb-4">HelloWorld.java</div>
+                    <pre class="text-sm leading-relaxed"><span class="syntax-keyword">public class</span> <span class="syntax-string">HelloWorld</span> {
+    <span class="syntax-keyword">public static void</span> <span class="syntax-string">main</span>(<span class="syntax-keyword">String</span>[] args) {
+        <span class="syntax-comment">// Your first Java program</span>
+        System.out.<span class="syntax-string">println</span>(<span class="syntax-string">"Hello, World!"</span>);
+        System.out.<span class="syntax-string">println</span>(<span class="syntax-string">"Welcome to Java Programming!"</span>);
+    }
+}</pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Resources Section -->
+    <section class="py-24 bg-gray-50" id="resources">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800">Learning Resources</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Notes Section -->
+                <div id="notes" class="bg-white rounded-2xl p-8 shadow-lg hover-lift border border-gray-100">
+                    <div class="w-20 h-20 bg-java-gradient rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-6">📚</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-center text-gray-800">Study Notes</h3>
+                    <p class="text-gray-600 text-center mb-6 leading-relaxed">Comprehensive notes covering all Java fundamentals and advanced topics</p>
+                    <div class="space-y-3 mb-6">
+                        <div class="text-sm text-gray-600">• Object-Oriented Programming</div>
+                        <div class="text-sm text-gray-600">• Data Structures & Algorithms</div>
+                        <div class="text-sm text-gray-600">• Exception Handling</div>
+                        <div class="text-sm text-gray-600">• Collections Framework</div>
+                        <div class="text-sm text-gray-600">• Multithreading & Concurrency</div>
+                    </div>
+                    <div class="text-center">
+                        <a href="https://www.codewithharry.com/tutorial/java/" target="_blank" class="inline-block bg-java-gradient text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
+                            Access Notes
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Videos Section -->
+                <div id="videos" class="bg-white rounded-2xl p-8 shadow-lg hover-lift border border-gray-100">
+                    <div class="w-20 h-20 bg-java-gradient rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-6">🎥</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-center text-gray-800">Video Tutorials</h3>
+                    <p class="text-gray-600 text-center mb-6 leading-relaxed">Step-by-step video tutorials from beginner to advanced level</p>
+                    <div class="space-y-3 mb-6">
+                        <div class="text-sm text-gray-600">• Interactive coding sessions</div>
+                        <div class="text-sm text-gray-600">• Real-world project examples</div>
+                        <div class="text-sm text-gray-600">• Best practices & coding standards</div>
+                        <div class="text-sm text-gray-600">• Industry expert insights</div>
+                        <div class="text-sm text-gray-600">• Live coding demonstrations</div>
+                    </div>
+                    <div class="text-center">
+                        <a href="https://www.youtube.com/watch?v=ntLJmHOJ0ME&list=PLu0W_9lII9agS67Uits0UnJyrYiXhDS6q" target="_blank" class="inline-block bg-java-gradient text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
+                            Watch Videos
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Practice Section -->
+                <div id="practice" class="bg-white rounded-2xl p-8 shadow-lg hover-lift border border-gray-100">
+                    <div class="w-20 h-20 bg-java-gradient rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-6">💻</div>
+                    <h3 class="text-2xl font-semibold mb-4 text-center text-gray-800">Practice & Exercises</h3>
+                    <p class="text-gray-600 text-center mb-6 leading-relaxed">Hands-on exercises and coding challenges to reinforce your learning</p>
+                    <div class="space-y-3 mb-6">
+                        <div class="text-sm text-gray-600">• Beginner to advanced exercises</div>
+                        <div class="text-sm text-gray-600">• Algorithm implementation</div>
+                        <div class="text-sm text-gray-600">• Code debugging challenges</div>
+                        <div class="text-sm text-gray-600">• Interview preparation questions</div>
+                        <div class="text-sm text-gray-600">• Project-based learning</div>
+                    </div>
+                    <div class="text-center">
+                        <a href="https://www.w3schools.com/java/java_exercises.asp" target="_blank" class="inline-block bg-java-gradient text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
+                            Start Practice
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Path Section -->
+    <section class="py-24 bg-dark-gradient text-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold text-center mb-16">Java Learning Path</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="feature-card rounded-2xl p-6 text-center">
+                    <div class="text-4xl mb-4">🚀</div>
+                    <h3 class="text-xl font-semibold mb-3">Getting Started</h3>
+                    <ul class="text-sm space-y-2 opacity-90">
+                        <li>Java Basics & Syntax</li>
+                        <li>Variables & Data Types</li>
+                        <li>Control Structures</li>
+                        <li>Methods & Functions</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card rounded-2xl p-6 text-center">
+                    <div class="text-4xl mb-4">🏗️</div>
+                    <h3 class="text-xl font-semibold mb-3">OOP Concepts</h3>
+                    <ul class="text-sm space-y-2 opacity-90">
+                        <li>Classes & Objects</li>
+                        <li>Inheritance</li>
+                        <li>Polymorphism</li>
+                        <li>Encapsulation</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card rounded-2xl p-6 text-center">
+                    <div class="text-4xl mb-4">🔧</div>
+                    <h3 class="text-xl font-semibold mb-3">Advanced Topics</h3>
+                    <ul class="text-sm space-y-2 opacity-90">
+                        <li>Collections Framework</li>
+                        <li>Exception Handling</li>
+                        <li>File I/O Operations</li>
+                        <li>Multithreading</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card rounded-2xl p-6 text-center">
+                    <div class="text-4xl mb-4">🎯</div>
+                    <h3 class="text-xl font-semibold mb-3">Specialization</h3>
+                    <ul class="text-sm space-y-2 opacity-90">
+                        <li>Spring Framework</li>
+                        <li>Database Connectivity</li>
+                        <li>Web Development</li>
+                        <li>Android Development</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <div class="p-8">
+                    <div class="text-5xl font-bold java-text-gradient mb-2 stat-number">3B+</div>
+                    <div class="text-lg text-gray-600">Devices Run Java</div>
+                </div>
+                <div class="p-8">
+                    <div class="text-5xl font-bold java-text-gradient mb-2 stat-number">9M+</div>
+                    <div class="text-lg text-gray-600">Java Developers</div>
+                </div>
+                <div class="p-8">
+                    <div class="text-5xl font-bold java-text-gradient mb-2 stat-number">#2</div>
+                    <div class="text-lg text-gray-600">Most Popular Language</div>
+                </div>
+                <div class="p-8">
+                    <div class="text-5xl font-bold java-text-gradient mb-2 stat-number">25+</div>
+                    <div class="text-lg text-gray-600">Years of Evolution</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-2">
+                    <div class="font-playfair text-3xl font-bold mb-4 text-gradient">ExamEdge</div>
+                    <p class="text-gray-400 leading-relaxed mb-6 max-w-md">
+                        Empowering students with comprehensive programming education. Master the fundamentals and build
+                        your future in technology.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Instagram">
+                            📷
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="LinkedIn">
+                            💼
+                        </a>
+                        <a href="./uploadfile.html"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Contribute">
+                            📤
+                        </a>
+                        <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Community">
+                            👥
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="./index.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Home</a></li>
+                        <li><a href="./about.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">About</a></li>
+                        <li><a href="./courses.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Courses</a></li>
+                        <li><a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-gray-400 hover:text-white transition-colors duration-300">Community</a>
+                        </li>
+                        <li><a href="./uploadfile.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Contribute</a></li>
+                    </ul>
+                </div>
+
+                <!-- Courses -->
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Popular Courses</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">C
+                                Programming</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">C++</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Java</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Python</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Data
+                                Structures</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    © 2025 ExamEdge. All rights reserved. Made with ❤️ for students.
+                </p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Terms of
+                        Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle side menu
+        function toggleMenu() {
+            const sideMenu = document.getElementById('side-menu');
+            const overlay = document.getElementById('overlay');
+            
+            sideMenu.classList.toggle('-left-80');
+            sideMenu.classList.toggle('left-0');
+            overlay.classList.toggle('opacity-0');
+            overlay.classList.toggle('invisible');
+            overlay.classList.toggle('opacity-100');
+            overlay.classList.toggle('visible');
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Counter animation for statistics
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = counter.textContent;
+                
+                if (target.includes('B+')) {
+                    let current = 0;
+                    const timer = setInterval(() => {
+                        current += 0.1;
+                        if (current >= 3) {
+                            current = 3;
+                            clearInterval(timer);
+                        }
+                        counter.textContent = current.toFixed(1) + 'B+';
+                    }, 50);
+                } else if (target.includes('M+')) {
+                    let current = 0;
+                    const timer = setInterval(() => {
+                        current += 0.3;
+                        if (current >= 9) {
+                            current = 9;
+                            clearInterval(timer);
+                        }
+                        counter.textContent = current.toFixed(0) + 'M+';
+                    }, 50);
+                } else if (target.includes('#2')) {
+                    counter.textContent = '#2';
+                } else if (target.includes('+')) {
+                    let current = 0;
+                    const finalValue = parseInt(target);
+                    const timer = setInterval(() => {
+                        current += 1;
+                        if (current >= finalValue) {
+                            current = finalValue;
+                            clearInterval(timer);
+                        }
+                        counter.textContent = current + '+';
+                    }, 80);
+                }
+            });
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('stat-number')) {
+                        animateCounters();
+                        observer.unobserve(entry.target);
+                    } else {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', () => {
+            // Observe statistics section
+            const statsSection = document.querySelector('.stat-number');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
+
+            // Add animation classes to elements
+            const animatedElements = document.querySelectorAll('.hover-lift, .feature-card');
+            animatedElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.6s ease';
+                observer.observe(el);
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+
+        // Add scroll effect for navbar
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('shadow-xl');
+            } else {
+                nav.classList.remove('shadow-xl');
+            }
+        });
+
+
+        // Add typing effect to hero text
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroSubtext = document.querySelector('.animate-fadeInUp p');
+            if (heroSubtext) {
+                const originalText = heroSubtext.textContent;
+                setTimeout(() => {
+                    typeWriter(heroSubtext, originalText, 50);
+                }, 1000);
+            }
+        });
+
+        // Add smooth reveal animation for resource cards
+        const revealCards = () => {
+            const cards = document.querySelectorAll('#notes, #videos, #practice');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0) scale(1)';
+                }, index * 200);
+            });
+        };
+
+        // Initialize card reveal
+        document.addEventListener('DOMContentLoaded', () => {
+            const resourceCards = document.querySelectorAll('#notes, #videos, #practice');
+            resourceCards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px) scale(0.95)';
+                card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+            
+            setTimeout(revealCards, 500);
+        });
+
+        // Add click ripple effect to buttons
+        function addRippleEffect(button) {
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.classList.add('ripple-effect');
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        }
+
+        // Apply ripple effect to all buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('button, .bg-java-gradient');
+            buttons.forEach(addRippleEffect);
+        });
+    </script>
+
+    <style>
+        /* Additional styles for the new functionality */
+        body {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .ripple-effect {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Enhanced hover effects for learning path cards */
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Loading animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Improved button hover effects */
+        .bg-java-gradient:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(237, 139, 0, 0.4);
+        }
+
+        /* Enhanced code block styling */
+        .code-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 768px) {
+            .feature-card:hover {
+                transform: translateY(-4px) scale(1.02);
+            }
+            
+            .hover-lift:hover {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
 </body>
 </html>

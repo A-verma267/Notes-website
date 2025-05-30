@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Resources | ExamEdge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        'primary': '#667eea',
+                        'secondary': '#764ba2',
+                        'accent': '#f093fb',
+                        'accent-end': '#f5576c',
+                        'dark-start': '#1e3c72',
+                        'dark-end': '#2a5298',
+                    },
+                    backgroundImage: {
+                        'primary-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        'secondary-gradient': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                        'dark-gradient': 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
+                        'light-gradient': 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
+                        'hero-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        'cyber-gradient': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                    },
+                    animation: {
+                        'fadeInUp': 'fadeInUp 0.8s ease forwards',
+                        'pulse-slow': 'pulse 2s infinite',
+                        'bounce-gentle': 'bounce 1s infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            'from': {
+                                opacity: '0',
+                                transform: 'translateY(30px)'
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .glass-dark {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+        }
+
+        .file-upload-area {
+            border: 2px dashed #667eea;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-area.dragover {
+            border-color: #764ba2;
+            background-color: rgba(102, 126, 234, 0.05);
+        }
+
+        .uploaded-file {
+            animation: slideInRight 0.3s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .success-modal {
+            backdrop-filter: blur(10px);
+        }
+        
+    </style>
+</head>
+
+<body class="font-inter text-gray-800 overflow-x-hidden bg-gray-50">
+    <!-- Overlay -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-40 opacity-0 invisible transition-all duration-300 ease-in-out" id="overlay" onclick="toggleMenu()"></div>
+    
+    <!-- Side Menu -->
+    <div class="fixed top-0 -left-80 w-80 h-screen bg-primary-gradient transition-all duration-300 ease-in-out z-50 p-8 shadow-2xl" id="side-menu">
+        <div class="absolute top-4 right-4 text-white text-3xl cursor-pointer transition-transform duration-300 hover:rotate-90" onclick="toggleMenu()">&times;</div>
+        <div class="mt-12 space-y-4">
+            <a href="./index.html" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Home</a>
+            <a href="./about.html" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">About</a>
+            <a href="./courses.html" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Courses</a>
+            <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Community</a>
+            <a href="#" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Contribute</a>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-30 glass-effect shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Left side -->
+                <div class="flex items-center space-x-4">
+                    <button class="lg:hidden text-xl cursor-pointer" onclick="toggleMenu()">&#9776;</button>
+                    <div class="font-playfair text-2xl font-bold text-gradient">ExamEdge</div>
+                </div>
+                
+                <!-- Center links (hidden on mobile) -->
+                <div class="hidden lg:flex space-x-8">
+                    <a href="./index.html" class="text-gray-800 font-medium relative group">
+                        Home
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="./about.html" class="text-gray-800 font-medium relative group">
+                        About
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="courses.html" class="text-gray-800 font-medium relative group">
+                        Courses
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-gray-800 font-medium relative group">
+                        Community
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </div>
+                
+                <!-- Right buttons -->
+                <div class="flex items-center space-x-4">
+                    <button class="hidden sm:flex items-center space-x-2 px-4 py-2 border-2 border-primary rounded-full font-semibold transition-all duration-300 bg-primary-gradient text-white">
+                        <span>📤</span>
+                        <span>Upload</span>
+                    </button>
+                    <a href="./blackbox.html">
+                        <button class="bg-primary-gradient text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/40">
+                            Log-in / Sign-up
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-hero-gradient text-white py-24 pt-32">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <div class="animate-fadeInUp">
+                <h1 class="font-playfair text-5xl md:text-6xl font-bold mb-6">Share Your Knowledge</h1>
+                <p class="text-xl md:text-2xl font-light opacity-90 mb-8">
+                    Help fellow students succeed by uploading your study materials, notes, and resources
+                </p>
+                <div class="w-32 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent mx-auto opacity-50"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Form Section -->
+    <section class="py-16 -mt-8">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 relative">
+                <!-- Background Pattern -->
+                <div class="absolute top-0 right-0 w-32 h-32 opacity-5">
+                    <div class="w-full h-full bg-primary-gradient rounded-full"></div>
+                </div>
+
+                <form id="uploadForm" class="space-y-8">
+                    <!-- Personal Information -->
+                    <div class="space-y-6">
+                        <h2 class="font-playfair text-3xl font-bold text-gray-800 mb-8 text-center">Upload Your Resources</h2>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
+                                <input type="text" id="fullName" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white">
+                                <span class="text-red-500 text-sm hidden" id="nameError">Please enter your full name</span>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
+                                <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white">
+                                <span class="text-red-500 text-sm hidden" id="emailError">Please enter a valid email address</span>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" id="phone" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Institution/University</label>
+                                <input type="text" id="institution" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resource Information -->
+                    <div class="space-y-6 border-t pt-8">
+                        <h3 class="font-playfair text-2xl font-bold text-gray-800">Resource Details</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Subject/Course *</label>
+                                <select id="subject" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white">
+                                    <option value="">Select Subject</option>
+                                    <option value="web-development">Web Development</option>
+                                    <option value="ai-python">AI with Python</option>
+                                    <option value="cyber-security">Cyber Security</option>
+                                    <option value="data-science">Data Science</option>
+                                    <option value="machine-learning">Machine Learning</option>
+                                    <option value="mobile-development">Mobile Development</option>
+                                    <option value="database">Database Management</option>
+                                    <option value="cloud-computing">Cloud Computing</option>
+                                    <option value="devops">DevOps</option>
+                                    <option value="ui-ux">UI/UX Design</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <span class="text-red-500 text-sm hidden" id="subjectError">Please select a subject</span>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Resource Type *</label>
+                                <select id="resourceType" required class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white">
+                                    <option value="">Select Type</option>
+                                    <option value="notes">Study Notes</option>
+                                    <option value="assignment">Assignment Solutions</option>
+                                    <option value="exam-papers">Previous Exam Papers</option>
+                                    <option value="presentation">Presentation Slides</option>
+                                    <option value="project">Project Files</option>
+                                    <option value="tutorial">Tutorial Documents</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <span class="text-red-500 text-sm hidden" id="typeError">Please select resource type</span>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Resource Title *</label>
+                            <input type="text" id="resourceTitle" required placeholder="e.g., Complete JavaScript Notes - Chapter 1-5" class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white">
+                            <span class="text-red-500 text-sm hidden" id="titleError">Please enter a resource title</span>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
+                            <textarea id="description" rows="4" placeholder="Briefly describe what this resource covers and how it can help other students..." class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-primary focus:outline-none transition-all duration-300 bg-gray-50 focus:bg-white resize-none"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- File Upload -->
+                    <div class="space-y-6 border-t pt-8">
+                        <h3 class="font-playfair text-2xl font-bold text-gray-800">Upload Files</h3>
+                        
+                        <div class="file-upload-area rounded-2xl p-8 text-center cursor-pointer transition-all duration-300" id="fileUploadArea">
+                            <div class="text-6xl mb-4">📁</div>
+                            <div class="text-xl font-semibold text-gray-700 mb-2">Drag & Drop your files here</div>
+                            <div class="text-gray-500 mb-4">or click to browse</div>
+                            <button type="button" class="bg-primary-gradient text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5">
+                                Choose Files
+                            </button>
+                            <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.ppt,.pptx,.txt" class="hidden">
+                            <div class="text-sm text-gray-400 mt-4">
+                                Supported formats: PDF, DOC, DOCX, PPT, PPTX, TXT (Max 10MB per file)
+                            </div>
+                        </div>
+
+                        <!-- Uploaded Files Display -->
+                        <div id="uploadedFiles" class="space-y-3 hidden">
+                            <h4 class="font-semibold text-gray-700">Uploaded Files:</h4>
+                            <div id="filesList" class="space-y-2"></div>
+                        </div>
+                    </div>
+
+                    <!-- Terms and Submit -->
+                    <div class="space-y-6 border-t pt-8">
+                        <div class="flex items-start space-x-3">
+                            <input type="checkbox" id="terms" required class="mt-1 w-5 h-5 text-primary bg-gray-100 border-gray-300 rounded focus:ring-primary focus:ring-2">
+                            <label for="terms" class="text-sm text-gray-700">
+                                I agree that the content I'm uploading is original or I have the right to share it. I understand that it will be reviewed before being published on ExamEdge. *
+                            </label>
+                        </div>
+                        <span class="text-red-500 text-sm hidden" id="termsError">Please accept the terms and conditions</span>
+
+                        <div class="text-center">
+                            <button type="submit" id="submitBtn" class="bg-primary-gradient text-white px-12 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/40 disabled:opacity-50 disabled:cursor-not-allowed">
+                                <span id="submitText">Upload Resources</span>
+                                <span id="submitLoader" class="hidden">
+                                    <span class="animate-spin inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2"></span>
+                                    Uploading...
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4 opacity-0 invisible transition-all duration-300 success-modal">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full text-center transform scale-95 transition-transform duration-300" id="modalContent">
+            <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div class="text-4xl">✅</div>
+            </div>
+            <h3 class="font-playfair text-2xl font-bold text-gray-800 mb-4">Upload Successful!</h3>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+                Thank you for contributing to ExamEdge! Your resources have been received and will be reviewed by our team. 
+                <strong>Your files will be available on the platform within 3 days.</strong>
+            </p>
+            <p class="text-sm text-gray-500 mb-6">
+                You will receive an email confirmation once your resources are live on the platform.
+            </p>
+            <button onclick="closeModal()" class="bg-primary-gradient text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5">
+                Continue
+            </button>
+        </div>
+    </div>
+
+    <!-- Benefits Section -->
+    <section class="py-16 bg-dark-gradient text-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="font-playfair text-4xl font-bold text-center mb-12">Why Share Your Resources?</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">🤝</div>
+                    <h3 class="text-xl font-semibold mb-3">Help Others Succeed</h3>
+                    <p class="opacity-90">Your knowledge can make a difference in someone's academic journey</p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">⭐</div>
+                    <h3 class="text-xl font-semibold mb-3">Build Your Reputation</h3>
+                    <p class="opacity-90">Get recognized as a valuable contributor in the ExamEdge community</p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">💡</div>
+                    <h3 class="text-xl font-semibold mb-3">Share Knowledge</h3>
+                    <p class="opacity-90">Contribute to a growing library of educational resources</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-2">
+                    <div class="font-playfair text-3xl font-bold mb-4 text-gradient">ExamEdge</div>
+                    <p class="text-gray-400 leading-relaxed mb-6 max-w-md">
+                        Empowering students with comprehensive programming education. Master the fundamentals and build
+                        your future in technology.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Instagram">
+                            📷
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="LinkedIn">
+                            💼
+                        </a>
+                        <a href="./uploadfile.html"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Contribute">
+                            📤
+                        </a>
+                        <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Community">
+                            👥
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="./index.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Home</a></li>
+                        <li><a href="./about.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">About</a></li>
+                        <li><a href="./courses.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Courses</a></li>
+                        <li><a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-gray-400 hover:text-white transition-colors duration-300">Community</a>
+                        </li>
+                        <li><a href="./uploadfile.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Contribute</a></li>
+                    </ul>
+                </div>
+
+                <!-- Courses -->
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Popular Courses</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">C
+                                Programming</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">C++</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Java</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Python</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Data
+                                Structures</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    © 2025 ExamEdge. All rights reserved. Made with ❤️ for students.
+                </p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Terms of
+                        Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle side menu
+        function toggleMenu() {
+            const sideMenu = document.getElementById('side-menu');
+            const overlay = document.getElementById('overlay');
+            
+            sideMenu.classList.toggle('-left-80');
+            sideMenu.classList.toggle('left-0');
+            overlay.classList.toggle('opacity-0');
+            overlay.classList.toggle('invisible');
+            overlay.classList.toggle('opacity-100');
+            overlay.classList.toggle('visible');
+        }
+
+        // File upload functionality
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const uploadedFiles = document.getElementById('uploadedFiles');
+        const filesList = document.getElementById('filesList');
+        let selectedFiles = [];
+
+        // Click to upload
+        fileUploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Drag and drop functionality
+        fileUploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUploadArea.classList.add('dragover');
+        });
+
+        fileUploadArea.addEventListener('dragleave', () => {
+            fileUploadArea.classList.remove('dragover');
+        });
+
+        fileUploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUploadArea.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            const maxSize = 10 * 1024 * 1024; // 10MB
+            const allowedTypes = ['.pdf', '.doc', '.docx', '.ppt', '.pptx', '.txt'];
+            
+            Array.from(files).forEach(file => {
+                if (file.size > maxSize) {
+                    alert(`File "${file.name}" exceeds 10MB limit`);
+                    return;
+                }
+                
+                const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+                if (!allowedTypes.includes(fileExtension)) {
+                    alert(`File "${file.name}" is not a supported format`);
+                    return;
+                }
+                
+                if (!selectedFiles.find(f => f.name === file.name)) {
+                    selectedFiles.push(file);
+                    displayFile(file);
+                }
+            });
+            
+            if (selectedFiles.length > 0) {
+                uploadedFiles.classList.remove('hidden');
+            }
+        }
+
+        function displayFile(file) {
+            const fileItem = document.createElement('div');
+            fileItem.className = 'uploaded-file flex items-center justify-between bg-gray-50 p-4 rounded-xl border-2 border-gray-200';
+            
+            const fileSize = (file.size / 1024 / 1024).toFixed(2);
+            
+            fileItem.innerHTML = `
+                <div class="flex items-center space-x-3">
+                    <div class="text-2xl">📄</div>
+                    <div>
+                        <div class="font-medium text-gray-800">${file.name}</div>
+                        <div class="text-sm text-gray-500">${fileSize} MB</div>
+                    </div>
+                </div>
+                <button type="button" onclick="removeFile('${file.name}')" class="text-red-500 hover:text-red-700 transition-colors duration-300">
+                    <span class="text-xl">×</span>
+                </button>
+            `;
+            
+            filesList.appendChild(fileItem);
+        }
+
+        function removeFile(fileName) {
+            selectedFiles = selectedFiles.filter(file => file.name !== fileName);
+            const fileItems = filesList.children;
+            
+            Array.from(fileItems).forEach(item => {
+                if (item.querySelector('.font-medium').textContent === fileName) {
+                    item.remove();
+                }
+            });
+            
+            if (selectedFiles.length === 0) {
+                uploadedFiles.classList.add('hidden');
+            }
+        }
+
+        // Form validation and submission
+        const form = document.getElementById('uploadForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const submitText = document.getElementById('submitText');
+        const submitLoader = document.getElementById('submitLoader');
+        const successModal = document.getElementById('successModal');
+        const modalContent = document.getElementById('modalContent');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            if (validateForm()) {
+                submitForm();
+            }
+        });
+
+        function validateForm() {
+            let isValid = true;
+            const requiredFields = [
+                { id: 'fullName', errorId: 'nameError', message: 'Please enter your full name' },
+                { id: 'email', errorId: 'emailError', message: 'Please enter a valid email address' },
+                { id: 'subject', errorId: 'subjectError', message: 'Please select a subject' },
+                { id: 'resourceType', errorId: 'typeError', message: 'Please select resource type' },
+                { id: 'resourceTitle', errorId: 'titleError', message: 'Please enter a resource title' },
+                { id: 'terms', errorId: 'termsError', message: 'Please accept the terms and conditions' }
+            ];
+
+            // Clear previous errors
+            requiredFields.forEach(field => {
+                document.getElementById(field.errorId).classList.add('hidden');
+                document.getElementById(field.id).classList.remove('border-red-500');
+            });
+
+            // Validate each field
+            requiredFields.forEach(field => {
+                const element = document.getElementById(field.id);
+                const errorElement = document.getElementById(field.errorId);
+                
+                if (field.id === 'terms') {
+                    if (!element.checked) {
+                        errorElement.classList.remove('hidden');
+                        isValid = false;
+                    }
+                } else if (field.id === 'email') {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!element.value.trim() || !emailRegex.test(element.value.trim())) {
+                        element.classList.add('border-red-500');
+                        errorElement.classList.remove('hidden');
+                        isValid = false;
+                    }
+                } else {
+                    if (!element.value.trim()) {
+                        element.classList.add('border-red-500');
+                        errorElement.classList.remove('hidden');
+                        isValid = false;
+                    }
+                }
+            });
+
+            if (selectedFiles.length === 0) {
+                alert('Please upload at least one file');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        function submitForm() {// Show loading state
+           submitBtn.disabled = true;
+           submitText.classList.add('hidden');
+           submitLoader.classList.remove('hidden');
+
+           // Simulate form submission (replace with actual API call)
+           setTimeout(() => {
+               // Reset form state
+               submitBtn.disabled = false;
+               submitText.classList.remove('hidden');
+               submitLoader.classList.add('hidden');
+
+               // Show success modal
+               showSuccessModal();
+               
+               // Reset form
+               form.reset();
+               selectedFiles = [];
+               filesList.innerHTML = '';
+               uploadedFiles.classList.add('hidden');
+           }, 2000);
+       }
+
+       function showSuccessModal() {
+           successModal.classList.remove('opacity-0', 'invisible');
+           successModal.classList.add('opacity-100', 'visible');
+           
+           setTimeout(() => {
+               modalContent.classList.remove('scale-95');
+               modalContent.classList.add('scale-100');
+           }, 50);
+       }
+
+       function closeModal() {
+           modalContent.classList.remove('scale-100');
+           modalContent.classList.add('scale-95');
+           
+           setTimeout(() => {
+               successModal.classList.add('opacity-0', 'invisible');
+               successModal.classList.remove('opacity-100', 'visible');
+           }, 200);
+       }
+
+       // Close modal on ESC key
+       document.addEventListener('keydown', (e) => {
+           if (e.key === 'Escape' && successModal.classList.contains('visible')) {
+               closeModal();
+           }
+       });
+
+       // Close modal when clicking outside
+       successModal.addEventListener('click', (e) => {
+           if (e.target === successModal) {
+               closeModal();
+           }
+       });
+
+       // Real-time validation feedback
+       const inputs = document.querySelectorAll('input, select, textarea');
+       inputs.forEach(input => {
+           input.addEventListener('input', () => {
+               if (input.value.trim()) {
+                   input.classList.remove('border-red-500');
+                   const errorElement = document.getElementById(input.id + 'Error');
+                   if (errorElement) {
+                       errorElement.classList.add('hidden');
+                   }
+               }
+           });
+       });
+
+       // Terms checkbox validation
+       document.getElementById('terms').addEventListener('change', (e) => {
+           const errorElement = document.getElementById('termsError');
+           if (e.target.checked) {
+               errorElement.classList.add('hidden');
+           }
+       });
+
+       // Smooth scrolling for form sections
+       const formSections = document.querySelectorAll('.space-y-6');
+       const observer = new IntersectionObserver((entries) => {
+           entries.forEach(entry => {
+               if (entry.isIntersecting) {
+                   entry.target.style.opacity = '1';
+                   entry.target.style.transform = 'translateY(0)';
+               }
+           });
+       }, { threshold: 0.1 });
+
+       formSections.forEach(section => {
+           section.style.opacity = '0';
+           section.style.transform = 'translateY(20px)';
+           section.style.transition = 'all 0.6s ease';
+           observer.observe(section);
+       });
+
+       // Character counter for description
+       const descriptionField = document.getElementById('description');
+       const maxChars = 500;
+       
+       // Create character counter element
+       const charCounter = document.createElement('div');
+       charCounter.className = 'text-sm text-gray-400 text-right mt-1';
+       charCounter.textContent = `0 / ${maxChars} characters`;
+       descriptionField.parentNode.appendChild(charCounter);
+
+       descriptionField.addEventListener('input', (e) => {
+           const currentLength = e.target.value.length;
+           charCounter.textContent = `${currentLength} / ${maxChars} characters`;
+           
+           if (currentLength > maxChars) {
+               charCounter.classList.add('text-red-500');
+               charCounter.classList.remove('text-gray-400');
+           } else {
+               charCounter.classList.remove('text-red-500');
+               charCounter.classList.add('text-gray-400');
+           }
+       });
+
+       // Auto-resize textarea
+       descriptionField.addEventListener('input', function() {
+           this.style.height = 'auto';
+           this.style.height = (this.scrollHeight) + 'px';
+       });
+
+       // Form progress indicator
+       function updateFormProgress() {
+           const requiredFields = ['fullName', 'email', 'subject', 'resourceType', 'resourceTitle'];
+           let filledFields = 0;
+           
+           requiredFields.forEach(fieldId => {
+               const field = document.getElementById(fieldId);
+               if (field.value.trim()) {
+                   filledFields++;
+               }
+           });
+           
+           if (selectedFiles.length > 0) {
+               filledFields++;
+           }
+           
+           const progress = Math.round((filledFields / (requiredFields.length + 1)) * 100);
+           
+           // Update progress indicator if it exists
+           const progressBar = document.getElementById('formProgress');
+           if (progressBar) {
+               progressBar.style.width = `${progress}%`;
+           }
+       }
+
+       // Add progress tracking to form fields
+       inputs.forEach(input => {
+           input.addEventListener('input', updateFormProgress);
+       });
+
+       // Update progress when files are added/removed
+       const originalHandleFiles = handleFiles;
+       handleFiles = function(files) {
+           originalHandleFiles(files);
+           updateFormProgress();
+       };
+
+       const originalRemoveFile = removeFile;
+       removeFile = function(fileName) {
+           originalRemoveFile(fileName);
+           updateFormProgress();
+       };
+
+       // Initialize animations
+       document.addEventListener('DOMContentLoaded', () => {
+           // Add entrance animations to elements
+           const animatedElements = document.querySelectorAll('.animate-fadeInUp');
+           animatedElements.forEach((element, index) => {
+               element.style.animationDelay = `${index * 0.1}s`;
+           });
+       });
+
+       // Form field focus animations
+       inputs.forEach(input => {
+           input.addEventListener('focus', () => {
+               input.parentNode.classList.add('scale-105');
+               input.parentNode.style.transition = 'transform 0.2s ease';
+           });
+           
+           input.addEventListener('blur', () => {
+               input.parentNode.classList.remove('scale-105');
+           });
+       });
+
+       // File upload area animations
+       fileUploadArea.addEventListener('mouseenter', () => {
+           fileUploadArea.style.transform = 'scale(1.02)';
+       });
+
+       fileUploadArea.addEventListener('mouseleave', () => {
+           fileUploadArea.style.transform = 'scale(1)';
+       });
+
+       // Success feedback for completed fields
+       inputs.forEach(input => {
+           input.addEventListener('blur', () => {
+               if (input.value.trim() && input.checkValidity()) {
+                   input.classList.add('border-green-400');
+                   input.classList.remove('border-red-500', 'border-gray-200');
+                   
+                   // Add success icon
+                   const successIcon = input.parentNode.querySelector('.success-icon');
+                   if (!successIcon) {
+                       const icon = document.createElement('div');
+                       icon.className = 'success-icon absolute right-3 top-1/2 transform -translate-y-1/2 text-green-500';
+                       icon.innerHTML = '✓';
+                       input.parentNode.style.position = 'relative';
+                       input.parentNode.appendChild(icon);
+                   }
+               } else {
+                   input.classList.remove('border-green-400');
+                   const successIcon = input.parentNode.querySelector('.success-icon');
+                   if (successIcon) {
+                       successIcon.remove();
+                   }
+               }
+           });
+       });
+   </script>
+</body>
+</html>

@@ -1,66 +1,533 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses | ExamEdge </title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="utilis.css">
-    <link rel="stylesheet" href="responsive.css">
+    <title>Python Language | ExamEdge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        'primary': '#667eea',
+                        'secondary': '#764ba2',
+                        'accent': '#f093fb',
+                        'accent-end': '#f5576c',
+                        'dark-start': '#1e3c72',
+                        'dark-end': '#2a5298',
+                        'python-blue': '#3776ab',
+                        'python-yellow': '#ffd43b',
+                    },
+                    backgroundImage: {
+                        'primary-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        'secondary-gradient': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                        'dark-gradient': 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
+                        'light-gradient': 'linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)',
+                        'hero-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        'python-gradient': 'linear-gradient(135deg, #3776ab 0%, #ffd43b 100%)',
+                    },
+                    animation: {
+                        'fadeInUp': 'fadeInUp 0.8s ease forwards',
+                        'slideInLeft': 'slideInLeft 0.6s ease forwards',
+                        'slideInRight': 'slideInRight 0.6s ease forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            'from': {
+                                opacity: '0',
+                                transform: 'translateY(30px)'
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
+                        },
+                        slideInLeft: {
+                            'from': {
+                                opacity: '0',
+                                transform: 'translateX(-50px)'
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'translateX(0)'
+                            }
+                        },
+                        slideInRight: {
+                            'from': {
+                                opacity: '0',
+                                transform: 'translateX(50px)'
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'translateX(0)'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .python-gradient-text {
+            background: linear-gradient(135deg, #3776ab 0%, #ffd43b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .glass-dark {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-10px);
+        }
+        
+        .resource-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+    </style>
 </head>
-<body>
-    <div class="side-menu" id="side-menu">
-        <div class="close-btn" onclick="toggleMenu()">&times;</div>
-        <a href="./index.html">Home</a>
-        <a href="./about.html">About</a>
-        <a href="./courses.html">Courses</a>
-        <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj">Community</a>
-        <a href="#">Contribute</a>
-    </div>
-    <div class="header">
-        <nav class="navbar">
-            <ul class="main d-flex j-spacebetween">
-                <div class="left">
 
-                    <li class="menu-toggle" onclick="toggleMenu()">&#9776;</li>
-                    <li class="logo list-none d-flex items-center t-underline">ExamEdge</li>
-                </div>
-                <ul type="disc" class="center-links d-flex">
-                    <li class="item list-none"><a href="./index.html" class="text-none c-black">Home</a></li>
-                    <li class="item list-none"><a href="./about.html" class="text-none c-black">About</a></li>
-                    <li class="item list-none"><a href="courses.html" class="text-none c-black">Courses</a></li>
-                    <li class="item list-none"><a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-none c-black">Community</a></li>
-                </ul>
-                <ul class="button d-flex items-center">
-                    <button id="btn1" class="align-right d-flex j-spacebetween items-center c-pointer"><img width="22"
-                            src="images/Upload cloud.png" alt=""> Upload</button>
-                    <a href="./blackbox.html"><button class="btn c-pointer">Log-in /Sign-up</button></a>
-                    
-                </ul>
-            </ul>
-        </nav>
-        <section class="dev">
-            <div class="section-head d-flex j-center t-underline">Python Langauge</div>
-            <div class="grid">
-                <li class="list-none grid-box d-flex j-center items-center"><a target="_blank" href="https://www.codewithharry.com/tutorial/python/">Notes</a></li>
-                <li class="list-none grid-box d-flex j-center items-center"><a target="_blank" href="https://www.youtube.com/watch?v=UrsmFxEIp5k">Videos</a></li>
-                <li class="list-none grid-box d-flex j-center items-center"><a target="_blank" href="https://www.w3schools.com/python/python_exercises.asp">Exercise</a></li>
-                
-            </div>
-        </section>
-        <div class="last">
-            <div class="con d-flex j-spacebetween items-center">
-                <div class="connect">Connect with us</div>
-                <div class="icon"> 
-                    <a href=""><img  src="images/Instagram (1).png" alt="instagram"></a>
-                    <a href=""><img src="images/Linkedin.png" alt="linked-in"></a>
-                </div>
-            </div>
-            <footer class="footer d-flex items-center">
-                <div class="logo-end">ExamEdge</div>| &nbsp; Copyright © 2024 ExamEdge.com
-            </footer>
+<body class="font-inter text-gray-800 overflow-x-hidden">
+    <!-- Overlay -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-40 opacity-0 invisible transition-all duration-300 ease-in-out" id="overlay" onclick="toggleMenu()"></div>
+    
+    <!-- Side Menu -->
+    <div class="fixed top-0 -left-80 w-80 h-screen bg-primary-gradient transition-all duration-300 ease-in-out z-50 p-8 shadow-2xl" id="side-menu">
+        <div class="absolute top-4 right-4 text-white text-3xl cursor-pointer transition-transform duration-300 hover:rotate-90" onclick="toggleMenu()">&times;</div>
+        <div class="mt-12 space-y-4">
+            <a href="./index.html" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Home</a>
+            <a href="./about.html" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">About</a>
+            <a href="./courses.html" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Courses</a>
+            <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Community</a>
+            <a href="#" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Contribute</a>
         </div>
     </div>
-    <script src="main.js"></script>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-30 glass-effect shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Left side -->
+                <div class="flex items-center space-x-4">
+                    <button class="lg:hidden text-xl cursor-pointer" onclick="toggleMenu()">&#9776;</button>
+                    <div class="font-playfair text-2xl font-bold text-gradient">ExamEdge</div>
+                </div>
+                
+                <!-- Center links (hidden on mobile) -->
+                <div class="hidden lg:flex space-x-8">
+                    <a href="./index.html" class="text-gray-800 font-medium relative group">
+                        Home
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="./about.html" class="text-gray-800 font-medium relative group">
+                        About
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="courses.html" class="text-gray-800 font-medium relative group">
+                        Courses
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-gray-800 font-medium relative group">
+                        Community
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </div>
+                
+                <!-- Right buttons -->
+                <div class="flex items-center space-x-4">
+                    <a href="./uploadfile.html"><button class="hidden sm:flex items-center space-x-2 px-4 py-2 border-2 border-primary rounded-full font-semibold transition-all duration-300 hover:bg-primary-gradient hover:text-white">
+                        <span>📤</span>
+                        <span>Upload</span>
+                    </button></a>
+                    <a href="./blackbox.html">
+                        <button class="bg-primary-gradient text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/40">
+                            Log-in / Sign-up
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen bg-python-gradient flex items-center justify-center text-white relative overflow-hidden pt-16">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0" style="background-image: radial-gradient(circle at 50% 50%, white 1px, transparent 1px); background-size: 50px 50px;"></div>
+        </div>
+        
+        <!-- Python Logo Animation -->
+        <div class="absolute top-20 right-10 w-20 h-20 opacity-20 animate-bounce">
+            <div class="w-full h-full bg-white rounded-lg flex items-center justify-center text-4xl">🐍</div>
+        </div>
+        <div class="absolute bottom-20 left-10 w-16 h-16 opacity-20 animate-pulse">
+            <div class="w-full h-full bg-white rounded-full flex items-center justify-center text-2xl">⚡</div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 animate-fadeInUp">
+            <div class="mb-8">
+                <div class="text-2xl font-light mb-4 opacity-90">Master</div>
+                <div class="font-playfair text-6xl md:text-7xl font-bold mb-6">Python Language</div>
+                <div class="text-xl md:text-2xl font-light opacity-90 mb-8">
+                    From basics to advanced concepts - Your complete Python learning journey
+                </div>
+            </div>
+            
+            <div class="w-32 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mb-8 opacity-50"></div>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <div class="bg-white bg-opacity-20 backdrop-blur-md rounded-lg px-6 py-3 text-lg font-medium">
+                    🚀 Beginner Friendly
+                </div>
+                <div class="bg-white bg-opacity-20 backdrop-blur-md rounded-lg px-6 py-3 text-lg font-medium">
+                    💡 Interactive Learning
+                </div>
+                <div class="bg-white bg-opacity-20 backdrop-blur-md rounded-lg px-6 py-3 text-lg font-medium">
+                    🎯 Real Projects
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold text-center mb-4 text-gray-800">Python Learning Resources</h2>
+            <p class="text-xl text-gray-600 text-center mb-16 max-w-3xl mx-auto">
+                Everything you need to become a Python expert - from comprehensive notes to hands-on exercises
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Notes Card -->
+                <div class="resource-card bg-white rounded-3xl p-8 shadow-lg border border-gray-100 text-center group">
+                    <div class="w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center text-4xl text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        📚
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800 group-hover:text-blue-600 transition-colors duration-300">
+                        Comprehensive Notes
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed mb-8">
+                        Detailed Python tutorials covering syntax, data structures, OOP, libraries, and advanced concepts with clear explanations and examples.
+                    </p>
+                    <a href="https://www.codewithharry.com/tutorial/python/" target="_blank" 
+                       class="inline-block bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/40">
+                        Access Notes
+                    </a>
+                </div>
+                
+                <!-- Videos Card -->
+                <div class="resource-card bg-white rounded-3xl p-8 shadow-lg border border-gray-100 text-center group">
+                    <div class="w-24 h-24 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center text-4xl text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        🎥
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800 group-hover:text-red-600 transition-colors duration-300">
+                        Video Tutorials
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed mb-8">
+                        Step-by-step video courses that make learning Python engaging and easy to follow. Perfect for visual learners who prefer guided instruction.
+                    </p>
+                    <a href="https://www.youtube.com/watch?v=UrsmFxEIp5k" target="_blank" 
+                       class="inline-block bg-gradient-to-r from-red-500 to-red-600 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-red-500/40">
+                        Watch Videos
+                    </a>
+                </div>
+                
+                <!-- Exercises Card -->
+                <div class="resource-card bg-white rounded-3xl p-8 shadow-lg border border-gray-100 text-center group">
+                    <div class="w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center text-4xl text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        💪
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-800 group-hover:text-green-600 transition-colors duration-300">
+                        Practice Exercises
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed mb-8">
+                        Hands-on coding exercises and challenges to reinforce your learning. Test your skills with real-world Python programming problems.
+                    </p>
+                    <a href="https://www.w3schools.com/python/python_exercises.asp" target="_blank" 
+                       class="inline-block bg-gradient-to-r from-green-500 to-green-600 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-green-500/40">
+                        Start Exercises
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Python Features Section -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800">Why Learn Python?</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gray-50 rounded-2xl p-8 hover-lift border border-gray-100 text-center">
+                    <div class="w-16 h-16 bg-python-gradient rounded-full flex items-center justify-center text-2xl text-white mx-auto mb-6">🚀</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Easy to Learn</h3>
+                    <p class="text-gray-600 leading-relaxed">Python's simple syntax makes it perfect for beginners and allows you to focus on programming concepts rather than complex syntax.</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-2xl p-8 hover-lift border border-gray-100 text-center">
+                    <div class="w-16 h-16 bg-python-gradient rounded-full flex items-center justify-center text-2xl text-white mx-auto mb-6">🌐</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Versatile</h3>
+                    <p class="text-gray-600 leading-relaxed">Use Python for web development, data science, AI, automation, desktop applications, and more. One language, endless possibilities.</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-2xl p-8 hover-lift border border-gray-100 text-center">
+                    <div class="w-16 h-16 bg-python-gradient rounded-full flex items-center justify-center text-2xl text-white mx-auto mb-6">👥</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Large Community</h3>
+                    <p class="text-gray-600 leading-relaxed">Benefit from extensive libraries, frameworks, and a supportive community that's always ready to help you solve problems.</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-2xl p-8 hover-lift border border-gray-100 text-center">
+                    <div class="w-16 h-16 bg-python-gradient rounded-full flex items-center justify-center text-2xl text-white mx-auto mb-6">💼</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">High Demand</h3>
+                    <p class="text-gray-600 leading-relaxed">Python developers are in high demand across industries, with competitive salaries and excellent career prospects.</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-2xl p-8 hover-lift border border-gray-100 text-center">
+                    <div class="w-16 h-16 bg-python-gradient rounded-full flex items-center justify-center text-2xl text-white mx-auto mb-6">⚡</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Rapid Development</h3>
+                    <p class="text-gray-600 leading-relaxed">Python's extensive standard library and third-party packages allow you to build applications quickly and efficiently.</p>
+                </div>
+                
+                <div class="bg-gray-50 rounded-2xl p-8 hover-lift border border-gray-100 text-center">
+                    <div class="w-16 h-16 bg-python-gradient rounded-full flex items-center justify-center text-2xl text-white mx-auto mb-6">🔬</div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-800">Data Science Ready</h3>
+                    <p class="text-gray-600 leading-relaxed">With libraries like NumPy, Pandas, and Matplotlib, Python is the go-to language for data analysis and machine learning.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Path Section -->
+    <section class="py-24 bg-dark-gradient text-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold text-center mb-16">Your Python Learning Path</h2>
+            
+            <div class="space-y-8">
+                <div class="flex flex-col md:flex-row items-center gap-8 animate-slideInLeft">
+                    <div class="md:w-1/2">
+                        <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-8">
+                            <h3 class="text-2xl font-bold mb-4 text-yellow-400">1. Fundamentals</h3>
+                            <p class="text-lg leading-relaxed">Master Python basics: variables, data types, control structures, functions, and error handling.</p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="w-32 h-32 bg-yellow-400 rounded-full flex items-center justify-center text-6xl">🐍</div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8 animate-slideInRight">
+                    <div class="md:w-1/2">
+                        <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-8">
+                            <h3 class="text-2xl font-bold mb-4 text-yellow-400">2. Object-Oriented Programming</h3>
+                            <p class="text-lg leading-relaxed">Learn classes, objects, inheritance, polymorphism, and encapsulation to write organized, reusable code.</p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="w-32 h-32 bg-yellow-400 rounded-full flex items-center justify-center text-6xl">🏗️</div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row items-center gap-8 animate-slideInLeft">
+                    <div class="md:w-1/2">
+                        <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-8">
+                            <h3 class="text-2xl font-bold mb-4 text-yellow-400">3. Libraries & Frameworks</h3>
+                            <p class="text-lg leading-relaxed">Explore popular libraries like NumPy, Pandas, Django, Flask, and more for specialized applications.</p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="w-32 h-32 bg-yellow-400 rounded-full flex items-center justify-center text-6xl">📦</div>
+                    </div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row-reverse items-center gap-8 animate-slideInRight">
+                    <div class="md:w-1/2">
+                        <div class="bg-white bg-opacity-10 backdrop-blur-md rounded-2xl p-8">
+                            <h3 class="text-2xl font-bold mb-4 text-yellow-400">4. Real Projects</h3>
+                            <p class="text-lg leading-relaxed">Apply your skills to build real-world projects and create an impressive portfolio.</p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 flex justify-center">
+                        <div class="w-32 h-32 bg-yellow-400 rounded-full flex items-center justify-center text-6xl">🚀</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-2">
+                    <div class="font-playfair text-3xl font-bold mb-4 text-gradient">ExamEdge</div>
+                    <p class="text-gray-400 leading-relaxed mb-6 max-w-md">
+                        Empowering students with comprehensive programming education. Master the fundamentals and build
+                        your future in technology.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Instagram">
+                            📷
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="LinkedIn">
+                            💼
+                        </a>
+                        <a href="./uploadfile.html"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Contribute">
+                            📤
+                        </a>
+                        <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Community">
+                            👥
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="./index.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Home</a></li>
+                        <li><a href="./about.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">About</a></li>
+                        <li><a href="./courses.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Courses</a></li>
+                        <li><a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-gray-400 hover:text-white transition-colors duration-300">Community</a>
+                        </li>
+                        <li><a href="./uploadfile.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Contribute</a></li>
+                    </ul>
+                </div>
+
+                <!-- Courses -->
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Popular Courses</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">C
+                                Programming</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">C++</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Java</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Python</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Data
+                                Structures</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    © 2025 ExamEdge. All rights reserved. Made with ❤️ for students.
+                </p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Terms of
+                        Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle side menu
+        function toggleMenu() {
+            const sideMenu = document.getElementById('side-menu');
+            const overlay = document.getElementById('overlay');
+            
+            sideMenu.classList.toggle('-left-80');
+            sideMenu.classList.toggle('left-0');
+            overlay.classList.toggle('opacity-0');
+            overlay.classList.toggle('invisible');
+            overlay.classList.toggle('opacity-100');
+            overlay.classList.toggle('visible');
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('animate-slideInLeft')) {
+                        entry.target.style.animationDelay = '0.2s';
+                        entry.target.classList.add('animate-slideInLeft');
+                    } else if (entry.target.classList.contains('animate-slideInRight')) {
+                        entry.target.style.animationDelay = '0.2s';
+                        entry.target.classList.add('animate-slideInRight');
+                    } else {
+                        entry.target.classList.add('animate-fadeInUp');
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Initialize observers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Observe all animated elements
+            document.querySelectorAll('.hover-lift, .resource-card').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // Observe learning path items
+            document.querySelectorAll('.animate-slideInLeft, .animate-slideInRight').forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // Smooth page load
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
 </body>
+
 </html>

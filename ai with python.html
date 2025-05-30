@@ -4,69 +4,637 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses | ExamEdge </title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="utilis.css">
-    <link rel="stylesheet" href="responsive.css">
+    <title>AI with Python | ExamEdge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        'primary': '#667eea',
+                        'secondary': '#764ba2',
+                        'accent': '#f093fb',
+                        'accent-end': '#f5576c',
+                        'dark-start': '#1e3c72',
+                        'dark-end': '#2a5298',
+                        'ai-primary': '#4f46e5',
+                        'ai-secondary': '#7c3aed',
+                    },
+                    backgroundImage: {
+                        'primary-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        'secondary-gradient': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                        'dark-gradient': 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
+                        'ai-gradient': 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)',
+                        'hero-ai': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        'cyber-gradient': 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                    },
+                    animation: {
+                        'fadeInUp': 'fadeInUp 0.8s ease forwards',
+                        'slideInLeft': 'slideInLeft 0.6s ease forwards',
+                        'slideInRight': 'slideInRight 0.6s ease forwards',
+                        'pulse-slow': 'pulse 3s ease-in-out infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            'from': {
+                                opacity: '0',
+                                transform: 'translateY(30px)'
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
+                        },
+                        slideInLeft: {
+                            'from': {
+                                opacity: '0',
+                                transform: 'translateX(-50px)'
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'translateX(0)'
+                            }
+                        },
+                        slideInRight: {
+                            'from': {
+                                opacity: '0',
+                                transform: 'translateX(50px)'
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'translateX(0)'
+                            }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .ai-text-gradient {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .glass-dark {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-10px);
+        }
+        
+        .hover-scale {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+        
+        .grid-pattern {
+            background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+        
+        .neural-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .neural-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                radial-gradient(circle at 25% 75%, rgba(255,255,255,0.1) 2px, transparent 2px),
+                radial-gradient(circle at 75% 25%, rgba(255,255,255,0.1) 2px, transparent 2px);
+            background-size: 100px 100px;
+            animation: float 8s ease-in-out infinite;
+        }
+    </style>
 </head>
 
-<body>
-    <div class="side-menu" id="side-menu">
-        <div class="close-btn" onclick="toggleMenu()">&times;</div>
-        <a href="./index.html">Home</a>
-        <a href="./about.html">About</a>
-        <a href="./courses.html">Courses</a>
-        <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj">Community</a>
-        <a href="#">Contribute</a>
-    </div>
-    <div class="header">
-
-        <nav class="navbar">
-            <ul class="main d-flex j-spacebetween">
-                <div class="left">
-
-                    <li class="menu-toggle" onclick="toggleMenu()">&#9776;</li>
-                    <li class="logo list-none d-flex items-center t-underline">ExamEdge</li>
-                </div>
-                <ul type="disc" class="center-links d-flex">
-                    <li class="item list-none"><a href="./index.html" class="text-none c-black">Home</a></li>
-                    <li class="item list-none"><a href="./about.html" class="text-none c-black">About</a></li>
-                    <li class="item list-none"><a href="courses.html" class="text-none c-black">Courses</a></li>
-                    <li class="item list-none"><a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-none c-black">Community</a></li>
-                </ul>
-                <ul class="button d-flex items-center">
-                    <button id="btn1" class="align-right d-flex j-spacebetween items-center c-pointer"><img width="22"
-                            src="images/Upload cloud.png" alt=""> Upload</button>
-                    <a href="./blackbox.html"><button class="btn c-pointer">Log-in /Sign-up</button></a>
-                    
-                </ul>
-            </ul>
-        </nav>
-        <section class="dev">
-            <div class="section-head d-flex j-center t-underline">Ai with python</div>
-            <div class="grid">
-                <li class="list-none grid-box d-flex j-center items-center"><a target="_blank" href="">Notes</a></li>
-                <li class="list-none grid-box d-flex j-center items-center"><a target="_blank" href="https://www.youtube.com/watch?v=26U2PChW2_s">Videos</a></li>
-                <li class="list-none grid-box d-flex j-center items-center"><a target="_blank" href="">Projects
-                        ideas</a></li>
-                </li>
-
-            </div>
-        </section>
-        <div class="last">
-            <div class="con d-flex j-spacebetween items-center">
-                <div class="connect">Connect with us</div>
-                <div class="icon"> 
-                    <a href=""><img  src="images/Instagram (1).png" alt="instagram"></a>
-                    <a href=""><img src="images/Linkedin.png" alt="linked-in"></a>
-                </div>
-            </div>
-            <footer class="footer d-flex items-center">
-                <div class="logo-end">ExamEdge</div>| &nbsp; Copyright © 2024 ExamEdge.com
-            </footer>
+<body class="font-inter text-gray-800 overflow-x-hidden">
+    <!-- Overlay -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-40 opacity-0 invisible transition-all duration-300 ease-in-out" id="overlay" onclick="toggleMenu()"></div>
+    
+    <!-- Side Menu -->
+    <div class="fixed top-0 -left-80 w-80 h-screen bg-ai-gradient transition-all duration-300 ease-in-out z-50 p-8 shadow-2xl" id="side-menu">
+        <div class="absolute top-4 right-4 text-white text-3xl cursor-pointer transition-transform duration-300 hover:rotate-90" onclick="toggleMenu()">&times;</div>
+        <div class="mt-12 space-y-4">
+            <a href="./index.html" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Home</a>
+            <a href="./about.html" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">About</a>
+            <a href="./courses.html" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Courses</a>
+            <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Community</a>
+            <a href="#" class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Contribute</a>
         </div>
     </div>
-    <script src="main.js"></script>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-30 glass-effect shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Left side -->
+                <div class="flex items-center space-x-4">
+                    <button class="lg:hidden text-xl cursor-pointer" onclick="toggleMenu()">&#9776;</button>
+                    <div class="font-playfair text-2xl font-bold text-gradient">ExamEdge</div>
+                </div>
+                
+                <!-- Center links (hidden on mobile) -->
+                <div class="hidden lg:flex space-x-8">
+                    <a href="./index.html" class="text-gray-800 font-medium relative group">
+                        Home
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="./about.html" class="text-gray-800 font-medium relative group">
+                        About
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="courses.html" class="text-gray-800 font-medium relative group">
+                        Courses
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-gray-800 font-medium relative group">
+                        Community
+                        <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </div>
+                
+                <!-- Right buttons -->
+                <div class="flex items-center space-x-4">
+                    <a href="./uploadfile.html"><button class="hidden sm:flex items-center space-x-2 px-4 py-2 border-2 border-primary rounded-full font-semibold transition-all duration-300 hover:bg-primary-gradient hover:text-white">
+                        <span>📤</span>
+                        <span>Upload</span>
+                    </button></a>
+                    <a href="./blackbox.html">
+                        <button class="bg-primary-gradient text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/40">
+                            Log-in / Sign-up
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen neural-bg flex items-center justify-center text-white relative overflow-hidden pt-16">
+        <div class="max-w-6xl mx-auto px-4 text-center relative z-10">
+            <div class="animate-fadeInUp">
+                <div class="mb-8">
+                    <div class="inline-flex items-center space-x-3 bg-white bg-opacity-10 backdrop-blur-sm rounded-full px-6 py-3 mb-6 border border-white border-opacity-20">
+                        <span class="text-2xl">🤖</span>
+                        <span class="text-lg font-medium">Artificial Intelligence</span>
+                    </div>
+                    <div class="font-playfair text-5xl md:text-7xl font-bold mb-6">
+                        AI with <span class="text-yellow-300">Python</span>
+                    </div>
+                </div>
+                
+                <div class="w-32 h-0.5 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mb-8 opacity-50"></div>
+                
+                <div class="space-y-4 text-xl md:text-2xl font-light opacity-90 max-w-4xl mx-auto">
+                    <p>"Master the future of technology with Python and AI"</p>
+                    <p>"From machine learning to deep learning - your complete AI journey starts here"</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating AI Icons -->
+        <div class="absolute top-20 left-10 text-4xl opacity-20 animate-float">🧠</div>
+        <div class="absolute top-40 right-20 text-3xl opacity-20 animate-float" style="animation-delay: -2s;">⚡</div>
+        <div class="absolute bottom-40 left-20 text-5xl opacity-20 animate-float" style="animation-delay: -4s;">🚀</div>
+        <div class="absolute bottom-20 right-10 text-3xl opacity-20 animate-float" style="animation-delay: -1s;">💡</div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold mb-6 text-gray-800">Master AI with Python</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Dive into the world of artificial intelligence with our comprehensive Python-based AI curriculum. 
+                    From fundamentals to advanced applications.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <!-- Notes Card -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift border border-gray-100 text-center group">
+                    <div class="w-20 h-20 bg-ai-gradient rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        📚
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Study Notes</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Comprehensive notes covering Python basics, machine learning algorithms, neural networks, and practical AI implementations.
+                    </p>
+                    <a href="#" target="_blank" class="inline-block bg-ai-gradient text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-500/40">
+                        Access Notes
+                    </a>
+                </div>
+                
+                <!-- Videos Card -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift border border-gray-100 text-center group">
+                    <div class="w-20 h-20 bg-secondary-gradient rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        🎥
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Video Tutorials</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Step-by-step video guides covering Python programming, AI concepts, and hands-on project development.
+                    </p>
+                    <a href="https://www.youtube.com/watch?v=26U2PChW2_s" target="_blank" class="inline-block bg-secondary-gradient text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-pink-500/40">
+                        Watch Videos
+                    </a>
+                </div>
+                
+                <!-- Projects Card -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift border border-gray-100 text-center group">
+                    <div class="w-20 h-20 bg-cyber-gradient rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        💡
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Project Ideas</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Innovative AI project ideas from beginner to advanced level, including chatbots, image recognition, and more.
+                    </p>
+                    <a href="#" target="_blank" class="inline-block bg-cyber-gradient text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/40">
+                        Explore Projects
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Topics Section -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800">What You'll Learn</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="p-6 rounded-xl border border-gray-200 hover:border-indigo-300 hover:shadow-lg transition-all duration-300">
+                    <div class="text-3xl mb-4">🐍</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Python Fundamentals</h3>
+                    <p class="text-gray-600">Master Python basics, data structures, and object-oriented programming essential for AI development.</p>
+                </div>
+                
+                <div class="p-6 rounded-xl border border-gray-200 hover:border-indigo-300 hover:shadow-lg transition-all duration-300">
+                    <div class="text-3xl mb-4">📊</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Data Science Libraries</h3>
+                    <p class="text-gray-600">Learn NumPy, Pandas, Matplotlib, and Seaborn for data manipulation and visualization.</p>
+                </div>
+                
+                <div class="p-6 rounded-xl border border-gray-200 hover:border-indigo-300 hover:shadow-lg transition-all duration-300">
+                    <div class="text-3xl mb-4">🤖</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Machine Learning</h3>
+                    <p class="text-gray-600">Explore scikit-learn, supervised and unsupervised learning algorithms and model evaluation.</p>
+                </div>
+                
+                <div class="p-6 rounded-xl border border-gray-200 hover:border-indigo-300 hover:shadow-lg transition-all duration-300">
+                    <div class="text-3xl mb-4">🧠</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Deep Learning</h3>
+                    <p class="text-gray-600">Build neural networks with TensorFlow and Keras for complex AI applications.</p>
+                </div>
+                
+                <div class="p-6 rounded-xl border border-gray-200 hover:border-indigo-300 hover:shadow-lg transition-all duration-300">
+                    <div class="text-3xl mb-4">💬</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Natural Language Processing</h3>
+                    <p class="text-gray-600">Process and analyze text data, build chatbots and language models.</p>
+                </div>
+                
+                <div class="p-6 rounded-xl border border-gray-200 hover:border-indigo-300 hover:shadow-lg transition-all duration-300">
+                    <div class="text-3xl mb-4">👁️</div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Computer Vision</h3>
+                    <p class="text-gray-600">Image processing, object detection, and facial recognition using OpenCV and deep learning.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prerequisites Section -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold mb-6 text-gray-800">Prerequisites</h2>
+                <p class="text-xl text-gray-600">What you need to know before starting your AI journey</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Required Knowledge</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold mt-0.5">✓</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Basic Programming Concepts</h4>
+                                <p class="text-gray-600">Variables, loops, functions, and basic data structures</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold mt-0.5">✓</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Mathematics Fundamentals</h4>
+                                <p class="text-gray-600">Linear algebra, statistics, and calculus basics</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold mt-0.5">✓</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Problem-Solving Skills</h4>
+                                <p class="text-gray-600">Logical thinking and analytical approach</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Recommended (Optional)</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold mt-0.5">+</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Python Experience</h4>
+                                <p class="text-gray-600">Previous Python programming experience is helpful</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold mt-0.5">+</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Data Analysis Background</h4>
+                                <p class="text-gray-600">Understanding of data manipulation and visualization</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-3">
+                            <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold mt-0.5">+</div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Machine Learning Concepts</h4>
+                                <p class="text-gray-600">Basic understanding of ML terminology and concepts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Paths Section -->
+    <section class="py-24 bg-dark-gradient text-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold mb-6">Career Opportunities</h2>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto">
+                    AI with Python opens doors to some of the most exciting and high-paying careers in technology
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center p-6 rounded-xl glass-dark border border-white border-opacity-10">
+                    <div class="text-4xl mb-4">🤖</div>
+                    <h3 class="text-xl font-semibold mb-2">ML Engineer</h3>
+                    <p class="text-sm opacity-80">$120k - $180k</p>
+                </div>
+                
+                <div class="text-center p-6 rounded-xl glass-dark border border-white border-opacity-10">
+                    <div class="text-4xl mb-4">📊</div>
+                    <h3 class="text-xl font-semibold mb-2">Data Scientist</h3>
+                    <p class="text-sm opacity-80">$110k - $160k</p>
+                </div>
+                
+                <div class="text-center p-6 rounded-xl glass-dark border border-white border-opacity-10">
+                    <div class="text-4xl mb-4">🧠</div>
+                    <h3 class="text-xl font-semibold mb-2">AI Researcher</h3>
+                    <p class="text-sm opacity-80">$130k - $200k</p>
+                </div>
+                
+                <div class="text-center p-6 rounded-xl glass-dark border border-white border-opacity-10">
+                    <div class="text-4xl mb-4">💼</div>
+                    <h3 class="text-xl font-semibold mb-2">AI Consultant</h3>
+                    <p class="text-sm opacity-80">$140k - $220k</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-2">
+                    <div class="font-playfair text-3xl font-bold mb-4 text-gradient">ExamEdge</div>
+                    <p class="text-gray-400 leading-relaxed mb-6 max-w-md">
+                        Empowering students with comprehensive programming education. Master the fundamentals and build
+                        your future in technology.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Instagram">
+                            📷
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="LinkedIn">
+                            💼
+                        </a>
+                        <a href="./uploadfile.html"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Contribute">
+                            📤
+                        </a>
+                        <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Community">
+                            👥
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="./index.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Home</a></li>
+                        <li><a href="./about.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">About</a></li>
+                        <li><a href="./courses.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Courses</a></li>
+                        <li><a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-gray-400 hover:text-white transition-colors duration-300">Community</a>
+                        </li>
+                        <li><a href="./uploadfile.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Contribute</a></li>
+                    </ul>
+                </div>
+
+                <!-- Courses -->
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Popular Courses</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">C
+                                Programming</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">C++</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Java</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Python</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Data
+                                Structures</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    © 2025 ExamEdge. All rights reserved. Made with ❤️ for students.
+                </p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Terms of
+                        Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle side menu
+        function toggleMenu() {
+            const sideMenu = document.getElementById('side-menu');
+            const overlay = document.getElementById('overlay');
+            
+            sideMenu.classList.toggle('-left-80');
+            sideMenu.classList.toggle('left-0');
+            overlay.classList.toggle('opacity-0');
+            overlay.classList.toggle('invisible');
+            overlay.classList.toggle('opacity-100');
+            overlay.classList.toggle('visible');
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeInUp');
+                }
+            });
+        }, observerOptions);
+
+        // Initialize observers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Observe cards for fade-in animation
+            document.querySelectorAll('.hover-lift').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Observe topic cards
+            document.querySelectorAll('.p-6.rounded-xl').forEach(el => {
+                observer.observe(el);
+            });
+
+            // Add staggered animation to topic cards
+            const topicCards = document.querySelectorAll('.p-6.rounded-xl');
+            topicCards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // Smooth page load
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Add interactive hover effects to career cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const careerCards = document.querySelectorAll('.glass-dark');
+            careerCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+
+        // Add scroll-triggered animations for sections
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const children = entry.target.querySelectorAll('.animate-on-scroll');
+                    children.forEach((child, index) => {
+                        setTimeout(() => {
+                            child.classList.add('animate-fadeInUp');
+                        }, index * 100);
+                    });
+                }
+            });
+        }, { threshold: 0.2 });
+
+        // Add dynamic text effect
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        
+    </script>
 </body>
 
 </html>

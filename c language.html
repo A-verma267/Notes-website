@@ -4,68 +4,945 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses | ExamEdge </title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="utilis.css">
-    <link rel="stylesheet" href="responsive.css">
+    <title>C Language | ExamEdge</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        'primary': '#667eea',
+                        'secondary': '#764ba2',
+                        'accent': '#f093fb',
+                        'accent-end': '#f5576c',
+                        'dark-start': '#1e3c72',
+                        'dark-end': '#2a5298',
+                        'c-blue': '#1e40af',
+                        'c-cyan': '#0891b2',
+                    },
+                    backgroundImage: {
+                        'primary-gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        'secondary-gradient': 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                        'dark-gradient': 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
+                        'hero-gradient': 'linear-gradient(135deg, #1e40af 0%, #0891b2 100%)',
+                        'code-gradient': 'linear-gradient(135deg, #374151 0%, #1f2937 100%)',
+                    },
+                    animation: {
+                        'fadeInUp': 'fadeInUp 0.8s ease forwards',
+                        'slideInLeft': 'slideInLeft 0.6s ease forwards',
+                        'slideInRight': 'slideInRight 0.6s ease forwards',
+                        'pulse-soft': 'pulse-soft 2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            'from': {
+                                opacity: '0',
+                                transform: 'translateY(30px)'
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            }
+                        },
+                        slideInLeft: {
+                            'from': {
+                                opacity: '0',
+                                transform: 'translateX(-50px)'
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'translateX(0)'
+                            }
+                        },
+                        slideInRight: {
+                            'from': {
+                                opacity: '0',
+                                transform: 'translateX(50px)'
+                            },
+                            'to': {
+                                opacity: '1',
+                                transform: 'translateX(0)'
+                            }
+                        },
+                        'pulse-soft': {
+                            '0%, 100%': {
+                                opacity: '1'
+                            },
+                            '50%': {
+                                opacity: '0.8'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .text-gradient {
+            background: linear-gradient(135deg, #1e40af 0%, #0891b2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass-effect {
+            backdrop-filter: blur(20px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .glass-dark {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-10px);
+        }
+
+        .code-block {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .syntax-highlight .keyword {
+            color: #60a5fa;
+        }
+
+        .syntax-highlight .function {
+            color: #34d399;
+        }
+
+        .syntax-highlight .string {
+            color: #fbbf24;
+        }
+
+        .syntax-highlight .comment {
+            color: #9ca3af;
+            font-style: italic;
+        }
+
+        .floating-icons {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .progress-indicator {
+            height: 4px;
+            background: linear-gradient(90deg, #1e40af 0%, #0891b2 100%);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+    </style>
 </head>
 
-<body>
-    <div class="side-menu" id="side-menu">
-        <div class="close-btn" onclick="toggleMenu()">&times;</div>
-        <a href="./index.html">Home</a>
-        <a href="./about.html">About</a>
-        <a href="./courses.html">Courses</a>
-        <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj">Community</a>
-        <a href="#">Contribute</a>
-    </div>
+<body class="font-inter text-gray-800 overflow-x-hidden bg-gray-50">
+    <!-- Overlay -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-40 opacity-0 invisible transition-all duration-300 ease-in-out"
+        id="overlay" onclick="toggleMenu()"></div>
 
-    <div class="header">
-        <nav class="navbar">
-            <ul class="main d-flex j-spacebetween">
-                <div class="left">
-
-                    <li class="menu-toggle" onclick="toggleMenu()">&#9776;</li>
-                    <li class="logo list-none d-flex items-center t-underline">ExamEdge</li>
-                </div>
-                <ul type="disc" class="center-links d-flex">
-                    <li class="item list-none"><a href="./index.html" class="text-none c-black">Home</a></li>
-                    <li class="item list-none"><a href="./about.html" class="text-none c-black">About</a></li>
-                    <li class="item list-none"><a href="courses.html" class="text-none c-black">Courses</a></li>
-                    <li class="item list-none"><a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-none c-black">Community</a></li>
-                </ul>
-                <ul class="button d-flex items-center">
-                    <button id="btn1" class="align-right d-flex j-spacebetween items-center c-pointer"><img width="22"
-                            src="images/Upload cloud.png" alt=""> Upload</button>
-                    <a href="./blackbox.html"><button class="btn c-pointer">Log-in /Sign-up</button></a>
-                    
-                </ul>
-            </ul>
-        </nav>
-        <section class="dev">
-            <div class="section-head d-flex j-center t-underline">C Langauge</div>
-            <div class="grid">
-                <li class="list-none grid-box d-flex j-center items-center"><a target="_blank" href="https://www.codewithharry.com/tutorial/c/">Notes</a></li>
-                <li class="list-none grid-box d-flex j-center items-center"><a target="_blank" href="https://www.youtube.com/watch?v=7Dh73z3icd8&list=PLu0W_9lII9aiXlHcLx-mDH1Qul38wD3aR">Videos</a></li>
-                <li class="list-none grid-box d-flex j-center items-center"><a target="_blank" href="https://www.w3schools.com/c/c_exercises.php">Exercise</a></li>
-                </li>
-
-            </div>
-        </section>
-        <div class="last">
-            <div class="con d-flex j-spacebetween items-center">
-                <div class="connect">Connect with us</div>
-                <div class="icon"> 
-                    <a href=""><img  src="images/Instagram (1).png" alt="instagram"></a>
-                    <a href=""><img src="images/Linkedin.png" alt="linked-in"></a>
-                </div>
-            </div>
-            <footer class="footer d-flex items-center">
-                <div class="logo-end">ExamEdge</div>| &nbsp; Copyright © 2024 ExamEdge.com
-            </footer>
+    <!-- Side Menu -->
+    <div class="fixed top-0 -left-80 w-80 h-screen bg-primary-gradient transition-all duration-300 ease-in-out z-50 p-8 shadow-2xl"
+        id="side-menu">
+        <div class="absolute top-4 right-4 text-white text-3xl cursor-pointer transition-transform duration-300 hover:rotate-90"
+            onclick="toggleMenu()">&times;</div>
+        <div class="mt-12 space-y-4">
+            <a href="./index.html"
+                class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Home</a>
+            <a href="./about.html"
+                class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">About</a>
+            <a href="./courses.html"
+                class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Courses</a>
+            <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj"
+                class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Community</a>
+            <a href="#"
+                class="block text-white py-4 font-medium transition-all duration-300 border-b border-white border-opacity-10 hover:pl-4 hover:text-yellow-300">Contribute</a>
         </div>
     </div>
-    <script src="main.js"></script>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full top-0 z-30 glass-effect shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Left side -->
+                <div class="flex items-center space-x-4">
+                    <button class="lg:hidden text-xl cursor-pointer" onclick="toggleMenu()">&#9776;</button>
+                    <div class="font-playfair text-2xl font-bold text-gradient">ExamEdge</div>
+                </div>
+
+                <!-- Center links (hidden on mobile) -->
+                <div class="hidden lg:flex space-x-8">
+                    <a href="./index.html" class="text-gray-800 font-medium relative group">
+                        Home
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="./about.html" class="text-gray-800 font-medium relative group">
+                        About
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="courses.html" class="text-gray-800 font-medium relative group">
+                        Courses
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                    <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj"
+                        class="text-gray-800 font-medium relative group">
+                        Community
+                        <span
+                            class="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary-gradient transition-all duration-300 group-hover:w-full"></span>
+                    </a>
+                </div>
+
+                <!-- Right buttons -->
+                <div class="flex items-center space-x-4">
+                    <a href="./uploadfile.html"><button
+                        class="hidden sm:flex items-center space-x-2 px-4 py-2 border-2 border-primary rounded-full font-semibold transition-all duration-300 hover:bg-primary-gradient hover:text-white">
+                        <span>📤</span>
+                        <span>Upload</span>
+                    </button></a>
+                    <a href="./blackbox.html">
+                        <button
+                            class="bg-primary-gradient text-white px-6 py-2 rounded-full font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-primary/40">
+                            Log-in / Sign-up
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+        class="min-h-screen bg-hero-gradient flex items-center justify-center text-white relative overflow-hidden pt-16">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0"
+                style="background-image: radial-gradient(circle at 50% 50%, white 1px, transparent 1px); background-size: 50px 50px;">
+            </div>
+        </div>
+
+        <!-- Floating Code Elements -->
+        <div class="absolute top-20 left-10 floating-icons opacity-20">
+            <div class="text-6xl">{ }</div>
+        </div>
+        <div class="absolute top-40 right-20 floating-icons opacity-20" style="animation-delay: 1s;">
+            <div class="text-4xl">#include</div>
+        </div>
+        <div class="absolute bottom-40 left-20 floating-icons opacity-20" style="animation-delay: 2s;">
+            <div class="text-5xl">int main()</div>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-4 text-center relative z-10">
+            <div class="animate-fadeInUp">
+                <div class="text-2xl font-light mb-4 opacity-90">Master the Foundation of Programming</div>
+                <div class="font-playfair text-6xl md:text-8xl font-bold mb-6">C Language</div>
+                <div class="text-xl md:text-2xl font-light opacity-90 max-w-3xl mx-auto mb-12">
+                    Build solid programming fundamentals with the language that powers the world's most critical systems
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <button
+                        class="bg-white text-c-blue px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                        Start Learning Now
+                    </button>
+                    <button
+                        class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white hover:text-c-blue">
+                        View Syllabus
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Overview -->
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <!-- Course Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-c-blue mb-2">50+</div>
+                    <div class="text-gray-600">Lessons</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-c-cyan mb-2">20hrs</div>
+                    <div class="text-gray-600">Duration</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-c-blue mb-2">100+</div>
+                    <div class="text-gray-600">Exercises</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-c-cyan mb-2">5</div>
+                    <div class="text-gray-600">Projects</div>
+                </div>
+            </div>
+
+            <!-- What You'll Learn -->
+            <div class="mb-16">
+                <h2 class="font-playfair text-4xl md:text-5xl font-bold text-center mb-12 text-gray-800">What You'll
+                    Learn</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4 animate-slideInLeft">
+                            <div
+                                class="w-8 h-8 bg-c-blue rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0 mt-1">
+                                ✓</div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Programming Fundamentals</h3>
+                                <p class="text-gray-600">Learn variables, data types, operators, and control structures
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 animate-slideInLeft" style="animation-delay: 0.1s;">
+                            <div
+                                class="w-8 h-8 bg-c-blue rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0 mt-1">
+                                ✓</div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Functions & Recursion</h3>
+                                <p class="text-gray-600">Master function creation, parameters, and recursive algorithms
+                                </p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 animate-slideInLeft" style="animation-delay: 0.2s;">
+                            <div
+                                class="w-8 h-8 bg-c-blue rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0 mt-1">
+                                ✓</div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Arrays & Strings</h3>
+                                <p class="text-gray-600">Handle collections of data and text manipulation</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-start space-x-4 animate-slideInRight">
+                            <div
+                                class="w-8 h-8 bg-c-cyan rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0 mt-1">
+                                ✓</div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Pointers & Memory</h3>
+                                <p class="text-gray-600">Understand memory management and pointer operations</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 animate-slideInRight" style="animation-delay: 0.1s;">
+                            <div
+                                class="w-8 h-8 bg-c-cyan rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0 mt-1">
+                                ✓</div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Structures & File I/O</h3>
+                                <p class="text-gray-600">Organize data with structures and handle file operations</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4 animate-slideInRight" style="animation-delay: 0.2s;">
+                            <div
+                                class="w-8 h-8 bg-c-cyan rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0 mt-1">
+                                ✓</div>
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Data Structures</h3>
+                                <p class="text-gray-600">Implement linked lists, stacks, queues, and trees</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Example -->
+            <div class="bg-gray-900 rounded-2xl p-8 mb-16">
+                <h3 class="text-white text-xl font-semibold mb-4">Sample C Program</h3>
+                <div class="code-block p-6 text-white font-mono text-sm leading-relaxed syntax-highlight">
+                    <div class="text-green-400">// Hello World Program in C</div>
+                    <div><span class="keyword">#include</span> <span class="string">&lt;stdio.h&gt;</span></div>
+                    <br>
+                    <div><span class="keyword">int</span> <span class="function">main</span>() {</div>
+                    <div class="ml-4"><span class="function">printf</span>(<span class="string">"Hello,
+                            World!\n"</span>);</div>
+                    <div class="ml-4"><span class="keyword">return</span> 0;</div>
+                    <div>}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Resources -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800">Learning Resources
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Notes -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift text-center border border-gray-100 group">
+                    <div
+                        class="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        📚
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Comprehensive Notes</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">Detailed explanations of C programming concepts with
+                        examples and best practices.</p>
+                    <a href="https://www.codewithharry.com/tutorial/c/" target="_blank"
+                        class="inline-block bg-blue-500 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-blue-600 hover:-translate-y-1">
+                        Access Notes
+                    </a>
+                </div>
+
+                <!-- Videos -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift text-center border border-gray-100 group">
+                    <div
+                        class="w-20 h-20 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        🎥
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Video Tutorials</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">Step-by-step video lessons covering every aspect of C
+                        programming from basics to advanced.</p>
+                    <a href="https://www.youtube.com/watch?v=7Dh73z3icd8&list=PLu0W_9lII9aiXlHcLx-mDH1Qul38wD3aR"
+                        target="_blank"
+                        class="inline-block bg-red-500 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-red-600 hover:-translate-y-1">
+                        Watch Videos
+                    </a>
+                </div>
+
+                <!-- Exercises -->
+                <div class="bg-white rounded-2xl p-8 shadow-lg hover-lift text-center border border-gray-100 group">
+                    <div
+                        class="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-3xl text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                        💻
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Practice Exercises</h3>
+                    <p class="text-gray-600 leading-relaxed mb-6">Hands-on coding exercises and challenges to strengthen
+                        your programming skills.</p>
+                    <a href="https://www.w3schools.com/c/c_exercises.php" target="_blank"
+                        class="inline-block bg-green-500 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:bg-green-600 hover:-translate-y-1">
+                        Start Coding
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Curriculum -->
+    <section class="py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-4">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800">Course Curriculum
+            </h2>
+
+            <div class="space-y-6">
+                <!-- Module 1 -->
+                <div class="bg-gray-50 rounded-2xl p-6 border-l-4 border-c-blue">
+                    <div class="flex items-center justify-between cursor-pointer" onclick="toggleModule('module1')">
+                        <h3 class="text-xl font-semibold text-gray-800">Module 1: Introduction to C Programming</h3>
+                        <span class="text-c-blue text-2xl" id="icon1">+</span>
+                    </div>
+                    <div class="progress-indicator mt-4" style="width: 100%"></div>
+                    <div class="hidden mt-4 space-y-2" id="module1">
+                        <p class="text-gray-600">• History and features of C</p>
+                        <p class="text-gray-600">• Setting up development environment</p>
+                        <p class="text-gray-600">• First C program</p>
+                        <p class="text-gray-600">• Compilation process</p>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="bg-gray-50 rounded-2xl p-6 border-l-4 border-c-cyan">
+                    <div class="flex items-center justify-between cursor-pointer" onclick="toggleModule('module2')">
+                        <h3 class="text-xl font-semibold text-gray-800">Module 2: Variables and Data Types</h3>
+                        <span class="text-c-cyan text-2xl" id="icon2">+</span>
+                    </div>
+                    <div class="progress-indicator mt-4" style="width: 85%"></div>
+                    <div class="hidden mt-4 space-y-2" id="module2">
+                        <p class="text-gray-600">• Variables and constants</p>
+                        <p class="text-gray-600">• Data types (int, char, float, double)</p>
+                        <p class="text-gray-600">• Input/Output operations</p>
+                        <p class="text-gray-600">• Type conversion</p>
+                    </div>
+                </div>
+
+                <!-- Module 3 -->
+                <div class="bg-gray-50 rounded-2xl p-6 border-l-4 border-c-blue">
+                    <div class="flex items-center justify-between cursor-pointer" onclick="toggleModule('module3')">
+                        <h3 class="text-xl font-semibold text-gray-800">Module 3: Control Structures</h3>
+                        <span class="text-c-blue text-2xl" id="icon3">+</span>
+                    </div>
+                    <div class="progress-indicator mt-4" style="width: 70%"></div>
+                    <div class="hidden mt-4 space-y-2" id="module3">
+                        <p class="text-gray-600">• Conditional statements (if, else, switch)</p>
+                        <p class="text-gray-600">• Loops (for, while, do-while)</p>
+                        <p class="text-gray-600">• Break and continue statements</p>
+                        <p class="text-gray-600">• Nested loops and conditions</p>
+                    </div>
+                </div>
+
+                <!-- Module 4 -->
+                <div class="bg-gray-50 rounded-2xl p-6 border-l-4 border-c-cyan">
+                    <div class="flex items-center justify-between cursor-pointer" onclick="toggleModule('module4')">
+                        <h3 class="text-xl font-semibold text-gray-800">Module 4: Functions and Arrays</h3>
+                        <span class="text-c-cyan text-2xl" id="icon4">+</span>
+                    </div>
+                    <div class="progress-indicator mt-4" style="width: 45%"></div>
+                    <div class="hidden mt-4 space-y-2" id="module4">
+                        <p class="text-gray-600">• Function definition and calling</p>
+                        <p class="text-gray-600">• Parameters and return values</p>
+                        <p class="text-gray-600">• One and multi-dimensional arrays</p>
+                        <p class="text-gray-600">• String handling</p>
+                    </div>
+                </div>
+
+                <!-- Module 5 -->
+                <div class="bg-gray-50 rounded-2xl p-6 border-l-4 border-c-blue">
+                    <div class="flex items-center justify-between cursor-pointer" onclick="toggleModule('module5')">
+                        <h3 class="text-xl font-semibold text-gray-800">Module 5: Pointers and Advanced Topics</h3>
+                        <span class="text-c-blue text-2xl" id="icon5">+</span>
+                    </div>
+                    <div class="progress-indicator mt-4" style="width: 20%"></div>
+                    <div class="hidden mt-4 space-y-2" id="module5">
+                        <p class="text-gray-600">• Pointer fundamentals</p>
+                        <p class="text-gray-600">• Dynamic memory allocation</p>
+                        <p class="text-gray-600">• Structures and unions</p>
+                        <p class="text-gray-600">• File handling</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800">Student Success
+                Stories</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 bg-c-blue rounded-full flex items-center justify-center text-white font-bold">
+                            A</div>
+                        <div class="ml-4">
+                            <div class="font-semibold text-gray-800">Alex Chen</div>
+                            <div class="text-gray-500 text-sm">Software Developer</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic leading-relaxed">
+                        "ExamEdge's C course gave me the solid foundation I needed. Now I'm working at a top tech
+                        company!"
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 bg-c-cyan rounded-full flex items-center justify-center text-white font-bold">
+                            S</div>
+                        <div class="ml-4">
+                            <div class="font-semibold text-gray-800">Sarah Johnson</div>
+                            <div class="text-gray-500 text-sm">Computer Science Student</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic leading-relaxed">
+                        "The structured approach and hands-on exercises made learning C programming enjoyable and
+                        effective."
+                    </p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 bg-c-blue rounded-full flex items-center justify-center text-white font-bold">
+                            R</div>
+                        <div class="ml-4">
+                            <div class="font-semibold text-gray-800">Rahul Sharma</div>
+                            <div class="text-gray-500 text-sm">Systems Engineer</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic leading-relaxed">
+                        "Perfect course for understanding low-level programming. The pointer concepts were explained
+                        brilliantly!"
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Getting Started -->
+    <section class="py-24 bg-hero-gradient text-white relative overflow-hidden">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute inset-0"
+                style="background-image: radial-gradient(circle at 50% 50%, white 1px, transparent 1px); background-size: 40px 40px;">
+            </div>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold mb-8">Ready to Start Your C Journey?</h2>
+            <p class="text-xl opacity-90 mb-12 max-w-3xl mx-auto">
+                Join thousands of students who have mastered C programming with our comprehensive course.
+                Build the foundation that will serve you throughout your programming career.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="text-center">
+                    <div
+                        class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                        🚀</div>
+                    <h3 class="text-xl font-semibold mb-2">Start Immediately</h3>
+                    <p class="opacity-80">Begin learning right away with our instant access</p>
+                </div>
+                <div class="text-center">
+                    <div
+                        class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                        👨‍💻</div>
+                    <h3 class="text-xl font-semibold mb-2">Expert Support</h3>
+                    <p class="opacity-80">Get help from experienced C programmers</p>
+                </div>
+                <div class="text-center">
+                    <div
+                        class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">
+                        🏆</div>
+                    <h3 class="text-xl font-semibold mb-2">Certificate</h3>
+                    <p class="opacity-80">Earn a completion certificate for your portfolio</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button
+                    class="bg-white text-c-blue px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                    Enroll Now - Free
+                </button>
+                <button
+                    class="border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-white hover:text-c-blue">
+                    Download Syllabus
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="font-playfair text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800">Frequently Asked
+                Questions</h2>
+
+            <div class="space-y-6">
+                <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                    <div class="flex items-center justify-between cursor-pointer" onclick="toggleFAQ('faq1')">
+                        <h3 class="text-lg font-semibold text-gray-800">Is this course suitable for complete beginners?
+                        </h3>
+                        <span class="text-c-blue text-2xl" id="faq-icon1">+</span>
+                    </div>
+                    <div class="hidden mt-4 text-gray-600" id="faq1">
+                        <p>Absolutely! This course is designed for complete beginners with no prior programming
+                            experience. We start from the very basics and gradually build up to advanced concepts.</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                    <div class="flex items-center justify-between cursor-pointer" onclick="toggleFAQ('faq2')">
+                        <h3 class="text-lg font-semibold text-gray-800">What software do I need to install?</h3>
+                        <span class="text-c-blue text-2xl" id="faq-icon2">+</span>
+                    </div>
+                    <div class="hidden mt-4 text-gray-600" id="faq2">
+                        <p>You'll need a C compiler like GCC and a text editor or IDE. We provide detailed setup
+                            instructions for Windows, Mac, and Linux. Popular choices include Code::Blocks, Dev-C++, or
+                            Visual Studio Code.</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                    <div class="flex items-center justify-between cursor-pointer" onclick="toggleFAQ('faq3')">
+                        <h3 class="text-lg font-semibold text-gray-800">How long does it take to complete the course?
+                        </h3>
+                        <span class="text-c-blue text-2xl" id="faq-icon3">+</span>
+                    </div>
+                    <div class="hidden mt-4 text-gray-600" id="faq3">
+                        <p>The course contains approximately 20 hours of content. If you study 1-2 hours per day, you
+                            can complete it in 2-4 weeks. However, you can learn at your own pace.</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                    <div class="flex items-center justify-between cursor-pointer" onclick="toggleFAQ('faq4')">
+                        <h3 class="text-lg font-semibold text-gray-800">Do I get a certificate upon completion?</h3>
+                        <span class="text-c-blue text-2xl" id="faq-icon4">+</span>
+                    </div>
+                    <div class="hidden mt-4 text-gray-600" id="faq4">
+                        <p>Yes! Upon successful completion of all modules and projects, you'll receive a certificate of
+                            completion that you can add to your resume and LinkedIn profile.</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-2xl p-6 border border-gray-100">
+                    <div class="flex items-center justify-between cursor-pointer" onclick="toggleFAQ('faq5')">
+                        <h3 class="text-lg font-semibold text-gray-800">Is there any support available if I get stuck?
+                        </h3>
+                        <span class="text-c-blue text-2xl" id="faq-icon5">+</span>
+                    </div>
+                    <div class="hidden mt-4 text-gray-600" id="faq5">
+                        <p>Yes! We have an active community forum and WhatsApp group where you can ask questions and get
+                            help from instructors and fellow students. We're committed to helping you succeed.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+                <!-- Brand -->
+                <div class="col-span-1 md:col-span-2">
+                    <div class="font-playfair text-3xl font-bold mb-4 text-gradient">ExamEdge</div>
+                    <p class="text-gray-400 leading-relaxed mb-6 max-w-md">
+                        Empowering students with comprehensive programming education. Master the fundamentals and build
+                        your future in technology.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Instagram">
+                            📷
+                        </a>
+                        <a href="#"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="LinkedIn">
+                            💼
+                        </a>
+                        <a href="./uploadfile.html"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Contribute">
+                            📤
+                        </a>
+                        <a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj"
+                            class="w-12 h-12 bg-primary-gradient rounded-full flex items-center justify-center text-white text-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/40"
+                            title="Community">
+                            👥
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="./index.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Home</a></li>
+                        <li><a href="./about.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">About</a></li>
+                        <li><a href="./courses.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Courses</a></li>
+                        <li><a href="https://chat.whatsapp.com/LsK5HiEOY068CvzOw03NQj" class="text-gray-400 hover:text-white transition-colors duration-300">Community</a>
+                        </li>
+                        <li><a href="./uploadfile.html"
+                                class="text-gray-400 hover:text-white transition-colors duration-300">Contribute</a></li>
+                    </ul>
+                </div>
+
+                <!-- Courses -->
+                <div>
+                    <h4 class="font-semibold text-lg mb-4">Popular Courses</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">C
+                                Programming</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">C++</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Java</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Python</a>
+                        </li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Data
+                                Structures</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    © 2025 ExamEdge. All rights reserved. Made with ❤️ for students.
+                </p>
+                <div class="flex space-x-6 text-sm">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Terms of
+                        Service</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors duration-300">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Toggle side menu
+        function toggleMenu() {
+            const sideMenu = document.getElementById('side-menu');
+            const overlay = document.getElementById('overlay');
+
+            if (sideMenu.classList.contains('-left-80')) {
+                sideMenu.classList.remove('-left-80');
+                sideMenu.classList.add('left-0');
+                overlay.classList.remove('opacity-0', 'invisible');
+                overlay.classList.add('opacity-100', 'visible');
+            } else {
+                sideMenu.classList.remove('left-0');
+                sideMenu.classList.add('-left-80');
+                overlay.classList.remove('opacity-100', 'visible');
+                overlay.classList.add('opacity-0', 'invisible');
+            }
+        }
+
+        // Toggle module content
+        function toggleModule(moduleId) {
+            const module = document.getElementById(moduleId);
+            const icon = document.getElementById('icon' + moduleId.slice(-1));
+
+            if (module.classList.contains('hidden')) {
+                module.classList.remove('hidden');
+                icon.textContent = '−';
+            } else {
+                module.classList.add('hidden');
+                icon.textContent = '+';
+            }
+        }
+
+        // Toggle FAQ content
+        function toggleFAQ(faqId) {
+            const faq = document.getElementById(faqId);
+            const icon = document.getElementById(faqId.replace('faq', 'faq-icon'));
+
+            if (faq.classList.contains('hidden')) {
+                faq.classList.remove('hidden');
+                icon.textContent = '−';
+            } else {
+                faq.classList.add('hidden');
+                icon.textContent = '+';
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navigation
+        window.addEventListener('scroll', function () {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-xl');
+            } else {
+                nav.classList.remove('shadow-xl');
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.animate-fadeInUp, .animate-slideInLeft, .animate-slideInRight').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            observer.observe(el);
+        });
+
+        // Typing effect for code examples
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+
+            type();
+        }
+
+        // Initialize typing effect when code block is visible
+        const codeObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.typed) {
+                    entry.target.dataset.typed = 'true';
+                    const originalText = entry.target.innerHTML;
+                    typeWriter(entry.target, originalText, 30);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.syntax-highlight').forEach(el => {
+            codeObserver.observe(el);
+        });
+
+        // Progress bar updates
+        function updateProgress() {
+            const progressBars = document.querySelectorAll('.progress-indicator');
+            progressBars.forEach((bar, index) => {
+                const percentage = [100, 85, 70, 45, 20][index];
+                setTimeout(() => {
+                    bar.style.width = percentage + '%';
+                }, index * 200);
+            });
+        }
+
+        // Update progress when curriculum section is visible
+        const curriculumObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !entry.target.dataset.animated) {
+                    entry.target.dataset.animated = 'true';
+                    updateProgress();
+                }
+            });
+        }, { threshold: 0.3 });
+
+        const curriculumSection = document.querySelector('#module1').closest('section');
+        if (curriculumSection) {
+            curriculumObserver.observe(curriculumSection);
+        }
+    </script>
 </body>
 
 </html>
